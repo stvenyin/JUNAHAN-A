@@ -1,5 +1,6 @@
-#+TITLE: README
+#+TITLE: JumpingEagle Misc
 #+AUTHOR: Junahan
 
-* JumpingEagle-misc
-Hold article, TODO list, etc.
+* Overview
+Hold articles, TODO list, etc.
+
