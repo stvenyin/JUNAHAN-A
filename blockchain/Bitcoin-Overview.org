@@ -1,0 +1,36 @@
+#+TITLE: 比特币概述
+#+AUTHOR: Tiedang Yang - tiedang.yang@hotmail.com
+#+DATE: 2018-03-23
+
+* 加密货币历史
+- Wei Dai - 首次引入通过解决计算难题和去中心化共识创造货币的思想， "b-money", http://www.weidai.com/bmoney.txt, 1998
+- Adam Back - Bitcoin PoW算法来源 "Hashcash - a denial of service counter-measure", http://www.hashcash.org/papers/hashcash.pdf, 2002
+- Hal Finney - 引入“可重复使用的工作量证明机制”的概念，“Resuable proofs of work", http://www.finney.org/~hal/rpow/, 2005
+- Satoshi Nakamoto（中本聪） - Bitcoin之父，"Bitcoin: A Peer-to-Peer Electronic Cash System", http://www.bitcoin.org/en/bitcoin-paper, 2009
+Vitalik Buterin - Ethereum创始人, http://www.ethereum.org, 2016
+
+* 比特币创世纪
+** 两个革命习新概念
+比特币的创建向世界引入了两个革命性的新概念：
+1. 比特币本身 - 一种去中心化的点对点的网上货币
+2. 区块链概念 - 结合工作量证明（PoW）的区块链构建共识网络，PoW被用于确保区块链安全的机制
+
+** 比特币创新
+1. 将一个基于p2p节点的去中心化共识协议和工作量证明结合在一起。
+2. 激励机制 - 巧妙的将货币发行作为挖矿的激励机制
+
+** 比特币限制
+Bitcoin的发展影响力迅速扩张，特别是自2016年以来，可是说是一日千里，于此同时，Bitcoin的缺陷也逐步展现，有些缺陷已经成为其进一步发展的障碍：
+1. 随着比特币价格的暴涨，参与比特币挖矿的算力呈现指数级增长，这导致了相应的电力消耗。人们对这些电力消耗来换取共识网络的安全是否值得存在不同的看法。
+2. 每10分钟一个区块的速度，包括区块的大小限制导致比特币交易系统的吞吐量大致在每秒少于十笔交易的水平，远远跟不上现代支付系统每秒数万笔交易的需求。
+3. 技术上可扩展性问题，特别是其脚本语言的限制，缺少图灵完备的特性，使得基于Bitcoin创建更高级的应用（如智能合约）比较困难。
+
+* 比特币进化
+比特币构建了一个P2P共识网络，但如果比特币要发布一个新版本（无论是修复Bug还是发布新特性）却不能依靠这个共识网络来解决大家对新版本的共识。新版本是否能够成功发布，还需要社区成员（运行比特币节点）通过社会工程来达成共识才行。
+
+** 软分叉和硬分叉
+
+** 改善提案（BIP）机制
+
+* 参考
+1) Satoshi Nakamoto（中本聪），"Bitcoin: A Peer-to-Peer Electronic Cash System", http://www.bitcoin.org/en/bitcoin-paper, 2009

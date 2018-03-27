@@ -1,6 +1,12 @@
 *~
-#*#
+^#*#
 *.pdf
 *.html
 *.doc
 *.tex
+*.dot
+*.aux
+*.log
+*.out
+*.toc
+*.DS_Store

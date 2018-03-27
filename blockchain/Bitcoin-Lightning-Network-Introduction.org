@@ -1,0 +1,74 @@
+#+TITLE: 比特币闪电网络介绍
+#+AUTHOR: Tiedang Yang - tiedang.yang@hotmail.com
+#+DATE: 2018-03-24 SAT
+<pre>
+作者：Tiedang Yang - tiedang.yang@hotmail.com
+日期：2018-03-24
+</pre>
+
+* 摘要
+
+* 比特币区块链问题
+
+- 交易确认缓慢 :: 每10分钟一个区块，交易要安全的确认需要至少6个区块，使得交易确认缓慢
+- 可扩展性问题 :: (有争议)
+ + 交易吞吐量有限 :: 所有交易均广播上链，单个区块容量有限，每秒中仅支持小于10比交易
+ + 区块大小迅速增长限制节点参与并导致集中化风险 :: 随着比特币交易需求的快速增加，动辄数百Gigabyte甚至数十Terabyte的区块大小限制普通节点（如个人PC和移动终端）加入网络，也会导致参与节点的集中化风险。
+
+* 闪电网络方案
+解决问题的基本思路是，在无需引入可信任第三方中介的前提下，如果有合适的方法能够在链下安全的确认交易，就不必要把所有的交易广播上链。
+
+闪电网络是由微支付通道相互链接形成一个巨大网络，能够实现链下（off-chain）确认交易，链上（on-chain）实施不合作节点惩罚和有效交易净额清算（Net-settlement），并且能够以去信任（Trustless）的方式实现网络中任意节点之间的价值转移。
+
+** 闪电网络相关名词
+
+- RSMC (Revocable Sequence Maturity Contract / 可撤销序列成熟度合约) :: 
+- HTLC (Hashed Time Lock Contract / 散列化时间锁合约) :: 
+- 可撤销承诺交易 (Revocable Commitment Transaction) :: 
+- 交付交易 (Delivery Transaction) :: 
+- 可撤销交付交易 (Revocable Delivery Transaction) :: 带有时间锁的交易
+- 违规补偿交易（Breach Remedy Transaction）:: 
+
+** RSMC和区块链法庭
+区块链作为法庭，程序作为法官作出最终裁决，通过上链违规补偿交易（）实施不合作节点惩罚；通过上链有效承诺交易（Valid Commitment Transaction）实施净额结算。
+
+- 利用交易nSequence域
+
+** HTLC和去信任
+通过HTLC可以在任意节点之间安全转移价值而无需信任中介节点。
+
+- 使用交易nTimeLock域
+
+** 相关BIPs
+
+*** BIP65: CHECKLOCKTIMEVERIFY
+该BIP为比特币脚本系统引入一个新操作码 (OP_CHECKLOCKTIMEVERIFY) ，使用比特币交易域nLockTime指定交易锁定时间，从而允许交易输出推迟至指定时间以后才能花费。
+
+*** BIP68: 基于交易序列号的相对时间锁
+
+*** BIP199: 散列化时间锁合约交易
+
+* 闪电网络引入的问题
+
+** 流动性问题
+
+闪电网络要求在支付通道内锁定资金，这可能会导致比特币流动性问题。
+- 网络流动性 (Network Liquidity) :: 保持通道开放可用
+- 通道流动性 (Channel Liquidity) :: 锁定部分资金以为通道提供可用的资金池
+
+** 系统性攻击
+
+闪电网络包含百万级别的支付通道，通道内锁定了大量的资金，特别是大的中介人通道容易成为系统性攻击的目标，并且隔离措施将不再起作用。系统性攻击看起来可能性不大，但一旦发生则会导致灾难性后果。
+- 支付通道相互链接并锁定大量的资金，系统性攻击会使所有通道参与方损失资金。
+- 支付通道特别是中介人通道包含大量历史链下交易（未广播交易），通过并发广播历史链下交易，攻击者可能得到更多的资金。
+- 系统行攻击可能导致很多交易上链，并带来高昂的交易费用
+
+* 参考文献
+1) Satoshi Nakamoto（中本聪），"Bitcoin: A Peer-to-Peer Electronic Cash System", http://www.bitcoin.org/en/bitcoin-paper, 2009
+2) Joseph Poon, Thaddeus Dryja, "The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments", https://lightning.network/lightning-network-paper.pdf, Version 0.5.9.1 2016
+3) Joseph Poon, "Time and Bitcoin", https://lightning.network/lightning-network-presentation-time-2015-07-06.pdf, 2015
+4) "SF Bitcoin Social", https://lightning.network/lightning-network-presentation-sfbitcoinsocial-2015-05-26.pdf, 2015
+5) BIP65 "OP_CHECKLOCKTIMEVERIFY", https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki, 2014
+6) BIP68 "Relative lock-time using consensus-enforced sequence numbers", https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki, 2015
+7) BIP199 "Hashed Time-Locked Contract Transactions", https://github.com/bitcoin/bips/blob/master/bip-0199.mediawiki, 2017
+ 
