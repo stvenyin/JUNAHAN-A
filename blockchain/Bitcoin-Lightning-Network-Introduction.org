@@ -1,74 +1,103 @@
 #+TITLE: 比特币闪电网络介绍
-#+AUTHOR: Tiedang Yang - tiedang.yang@hotmail.com
+#+AUTHOR: Junahan
+#+EMAIL: junahan@outlook.com
 #+DATE: 2018-03-24 SAT
-<pre>
-作者：Tiedang Yang - tiedang.yang@hotmail.com
-日期：2018-03-24
-</pre>
 
 * 摘要
+比特币闪电网络是一个去中心化的即时、大吞吐量微支付系统，该系统无需委托可信的第三方代管资金，也没有相应的风险。实现的方法是创新性的利用比特币内置脚本构建支持链下（off-chain）安全确认交易的通道网络，并利用比特币区块链作为法庭确保链下交易确认安全。
 
-* 比特币区块链问题
+闪电网络的思路并不局限于比特币，也适用于类似的数字货币（如以太坊），其方法甚至可以扩展为一种跨链技术以实现在不同账本之间转移价值。
 
+* 比特币区块链可扩展性问题
 - 交易确认缓慢 :: 每10分钟一个区块，交易要安全的确认需要至少6个区块，使得交易确认缓慢
-- 可扩展性问题 :: (有争议)
+- 可扩展性问题 :: 
  + 交易吞吐量有限 :: 所有交易均广播上链，单个区块容量有限，每秒中仅支持小于10比交易
  + 区块大小迅速增长限制节点参与并导致集中化风险 :: 随着比特币交易需求的快速增加，动辄数百Gigabyte甚至数十Terabyte的区块大小限制普通节点（如个人PC和移动终端）加入网络，也会导致参与节点的集中化风险。
+
+/有关比特币可扩展性问题，比特币社区有很多讨论和提案，有兴趣的朋友可以参阅[[http://diyhpl.us/~bryan/irc/bitcoin/scalingbitcoin-review.pdf][比特币扩展方案评论]] (Bryan Bishop, 2015) 。/
 
 * 闪电网络方案
 解决问题的基本思路是，在无需引入可信任第三方中介的前提下，如果有合适的方法能够在链下安全的确认交易，就不必要把所有的交易广播上链。
 
-闪电网络是由微支付通道相互链接形成一个巨大网络，能够实现链下（off-chain）确认交易，链上（on-chain）实施不合作节点惩罚和有效交易净额清算（Net-settlement），并且能够以去信任（Trustless）的方式实现网络中任意节点之间的价值转移。
+闪电网络是由微支付通道相互链接形成一个巨大网络，能够实现链下确认交易，链上（on-chain）实施不合作节点惩罚和有效交易净额清算（Net-settlement），并且能够以去信任（Trustless）的方式实现网络中任意节点之间的价值转移。
 
-** 闪电网络相关名词
+闪电网络的设计目标：
+- 即时支付 :: 闪电网络的交易不需要区块确认，交易可瞬间在链下完成确认。
+- 微支付低费用 :: 闪电网络使用真正的比特币交易，却最小化交易结算（交易广播上链）的需要，可以以极低的费用实现小到 0.00000001 比特币的交易。
+- 大容量可扩展 :: 闪电网络交易在链下确认，允许用户执行近乎无限的微支付交易，可以满足诸如物联网设备间的自动大量交易。
 
-- RSMC (Revocable Sequence Maturity Contract / 可撤销序列成熟度合约) :: 
-- HTLC (Hashed Time Lock Contract / 散列化时间锁合约) :: 
-- 可撤销承诺交易 (Revocable Commitment Transaction) :: 
-- 交付交易 (Delivery Transaction) :: 
-- 可撤销交付交易 (Revocable Delivery Transaction) :: 带有时间锁的交易
-- 违规补偿交易（Breach Remedy Transaction）:: 
+** 微支付通道和RSMC
+闪电网络支持交易双方共同出资以创建一个双向微支付通道，随后双方可以通过该通道链下确认相互之间的一系列交易而不用交易广播至链上确认，只有在需要最终结算和其中一方不再合作的情形下才需要广播交易上链。作为类比，闪电网络通过将比特币区块链作为法庭，算法做法官，结合RSMC（可撤销序列成熟度合约）机制提供证据，共同确保链下确认支付的安全：
+- 可撤销序列成熟度合约机制提供链下交易确认证据 :: 有效交易和无效交易证据
+- 净额清算 :: 通过广播上链有效交易（即最后一笔交易）就可以实施净额清算
+- 违规惩罚 :: 一方违规，如上链对自己有利的老旧交易，另外一方则可以通过上链相应的违规补偿交易（Breach Remedy Transaction）作为证据，即可实施违规惩罚，结果是所有通道资金均归能够提供违规证据的一方所有，惩罚由算法强制执行。
 
-** RSMC和区块链法庭
-区块链作为法庭，程序作为法官作出最终裁决，通过上链违规补偿交易（）实施不合作节点惩罚；通过上链有效承诺交易（Valid Commitment Transaction）实施净额结算。
+*** RSMC
+RSMC即可撤销序列成熟度合约，一个有关交易双方的交易结构安排，一组带有RSMC的比特币交易看起来如下图所示：
 
-- 利用交易nSequence域
+ - 父交易 PTX 的 0 号输出是一个带有 RSMC的 2-of-2 签名脚本
+ - 
 
-** HTLC和去信任
-通过HTLC可以在任意节点之间安全转移价值而无需信任中介节点。
+*** 安全创建微支付通道
+
+*** 链下交易确认
+
+*** 净额清算
+
+*** 违规惩罚
+
+** 闪电网络和HTLC
+通过HTLC可以在闪电网络任意节点之间安全转移价值而无需信任中介节点。
 
 - 使用交易nTimeLock域
 
-** 相关BIPs
+** 闪电网络相关名词
+- RSMC (Revocable Sequence Maturity Contract / 可撤销序列成熟度合约) :: 一个交易合约，允许带有该合约的交易（父交易）输出只能在该交易确认后推迟指定时间（由子交易序列确定）花费，可以通过创建一个特殊的子交易来取代其他子交易并立即花费父交易输出。
+- HTLC (Hashed Time Lock Contract / 散列安全时间锁合约) :: 一个比特币脚本，允许受托方提供一个指定散列的原始密文来花费合约资金，也允许委托人在时间锁过期后赎回资金。
+- 资金交易 (Fund Transaction) :: 一个 2-of-2 多重签名交易，用于创建最初的支付通道资金池。
+- 可撤销承诺交易 (Revocable Commitment Transaction) :: 资金交易的子交易，可以花费资金交易的输出，通过创建新交易并撤销老旧交易在交易通道双方重新分配资金额。
+- 支付交易 (Delivery Transaction) :: 一旦承诺交易广播上链，该交易能立即从承诺交易赎回资金。
+- 可撤销支付交易 (Revocable Delivery Transaction) :: 带有时间锁的支付交易，可延迟收回承诺交易资金。
+- 违规补偿交易（Breach Remedy Transaction）:: 用于对不合作节点实施惩罚的交易。
 
+** 相关BIPs
 *** BIP65: CHECKLOCKTIMEVERIFY
-该BIP为比特币脚本系统引入一个新操作码 (OP_CHECKLOCKTIMEVERIFY) ，使用比特币交易域nLockTime指定交易锁定时间，从而允许交易输出推迟至指定时间以后才能花费。
+该BIP为比特币脚本系统引入一个新操作码 (OP_CHECKLOCKTIMEVERIFY) ，使用比特币交易域nLockTime指定交易锁定时间，从而允许交易输出推迟至指定时间以后才能花费。闪电网络可以使用该机制创建微支付通道，但不便之处在于到期后需要清算并关闭通道。
 
 *** BIP68: 基于交易序列号的相对时间锁
+    通过在比特币交易记录中引入交易序列号 (nSequence) 实现相对时间锁 (RLT)，确保签名交易的输入在其相应的前序交易确认后的指定时间内（现对于前序交易确认时点）保持无效。闪电网络使用nSequence，但修改其原有的语意以实现RSMC，好处是可以保持支付通道一直开启。
 
-*** BIP199: 散列化时间锁合约交易
+*** BIP199: 散列安全时间锁合约交易
+一个散列安全时间锁合约（HTLC）是一个脚本，它允许受委托者通过提供一个散列的原始密文来花费合约资金，也允许委托人在时间锁过期后赎回资金。该比特币改善提案实现HTLC。
 
 * 闪电网络引入的问题
 
 ** 流动性问题
-
-闪电网络要求在支付通道内锁定资金，这可能会导致比特币流动性问题。
+闪电网络要求在支付通道内锁定资金，这可能会导致流动性问题，同时由于闪电网络具有大幅度降低交易上链的需求，可能会导致和矿工之间的竞争。
 - 网络流动性 (Network Liquidity) :: 保持通道开放可用
 - 通道流动性 (Channel Liquidity) :: 锁定部分资金以为通道提供可用的资金池
 
 ** 系统性攻击
-
 闪电网络包含百万级别的支付通道，通道内锁定了大量的资金，特别是大的中介人通道容易成为系统性攻击的目标，并且隔离措施将不再起作用。系统性攻击看起来可能性不大，但一旦发生则会导致灾难性后果。
 - 支付通道相互链接并锁定大量的资金，系统性攻击会使所有通道参与方损失资金。
 - 支付通道特别是中介人通道包含大量历史链下交易（未广播交易），通过并发广播历史链下交易，攻击者可能得到更多的资金。
 - 系统行攻击可能导致很多交易上链，并带来高昂的交易费用
 
+*  闪电网络的启示
+闪电网络给我们最大的启示莫过于再一次证明创新的利用比特币脚本能够产生颠覆性革新应用。当然了，闪电网络的思想也不仅仅适用于比特币。
+
+- 创新利用比特币脚本能够产生颠覆行革新。
+- 闪电网络思想不仅仅可用于改善比特币网络，它同样适用于类似的数字货币，实际上，以太坊就有自己的闪电网络。
+- HTLC的思想也不仅仅限于比特币内部，它可以扩展为一个跨链技术以在不同账本之间交换价值。
+
 * 参考文献
-1) Satoshi Nakamoto（中本聪），"Bitcoin: A Peer-to-Peer Electronic Cash System", http://www.bitcoin.org/en/bitcoin-paper, 2009
-2) Joseph Poon, Thaddeus Dryja, "The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments", https://lightning.network/lightning-network-paper.pdf, Version 0.5.9.1 2016
-3) Joseph Poon, "Time and Bitcoin", https://lightning.network/lightning-network-presentation-time-2015-07-06.pdf, 2015
-4) "SF Bitcoin Social", https://lightning.network/lightning-network-presentation-sfbitcoinsocial-2015-05-26.pdf, 2015
-5) BIP65 "OP_CHECKLOCKTIMEVERIFY", https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki, 2014
-6) BIP68 "Relative lock-time using consensus-enforced sequence numbers", https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki, 2015
-7) BIP199 "Hashed Time-Locked Contract Transactions", https://github.com/bitcoin/bips/blob/master/bip-0199.mediawiki, 2017
+1) Satoshi Nakamoto（中本聪），"Bitcoin: A Peer-to-Peer Electronic Cash System", http://www.bitcoin.org/en/bitcoin-paper, 2009.
+2) Bryan Bishop, "Review of Bitcoin Scaling Proposals", http://diyhpl.us/~bryan/irc/bitcoin/scalingbitcoin-review.pdf, 2015.
+3) Joseph Poon, Thaddeus Dryja, "The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments", https://lightning.network/lightning-network-paper.pdf, Version 0.5.9.1 2016.
+4) Joseph Poon, "Time and Bitcoin", https://lightning.network/lightning-network-presentation-time-2015-07-06.pdf, 2015
+5) "SF Bitcoin Social", https://lightning.network/lightning-network-presentation-sfbitcoinsocial-2015-05-26.pdf, 2015
+6) BIP65 "OP_CHECKLOCKTIMEVERIFY", https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki, 2014
+7) BIP68 "Relative lock-time using consensus-enforced sequence numbers", https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki, 2015
+8) BIP199 "Hashed Time-Locked Contract Transactions", https://github.com/bitcoin/bips/blob/master/bip-0199.mediawiki, 2017
+
  

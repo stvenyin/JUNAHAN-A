@@ -3,12 +3,12 @@
 #+EMAIL: junahan@outlook.com
 #+DATE: 2018-03-23
 
-<pre>
+#+BEGIN_SRC 
 作者：Joseph Poon (joseph@lightning.network) , Thaddeus Dryja ( rx@awsomnet.org) 
 日期：2016年1月14日
 版本：0.5.9.2 （草案）
 译者：Junahan - junahan@outlook.com
-</pre>
+#+END_SRC
 
 * 摘要
 比特币协议能够囊括今天在所有电子交易系统上完成的全球金融交易量，无需一个单独保管的第三方持有基金，且除了一台通过家庭宽带链接互联网的计算机以外，对参与者无其他任何要求。一个去中心化系统被提议用于通过微支付通道（又称为支付通道或交易通道）网络发送交易，通过微支付通道实现链下价值转移。
@@ -16,7 +16,7 @@
 If Bitcoin transactions can be signed with a new sighash type that addresses malleability, these transfers may occur between untrusted parties along the transfer route by contracts which, in the event of uncooperative or hostile participants, are enforceable via broadcast over the bitcoin blockchain in the event of uncooperative or hostile participants, through a series of decrementing timelocks.
 
 * 比特币区块链可扩展性问题
-比特币[1]区块链保持分布式账本的崇高承诺，但是作为一个交易平台本身却不能够覆盖近期内任何时候的全球贸易。区块链是一个八卦协议，通过该协议，所有账本状态的更改均被广播至所有参与者。正是通过这个“八卦协议”达成了有关状态、每个人账户余额的共识。如果比特币网络中的每个节点均需要知晓发生在全球范围内的每笔单个交易，会对这个网络囊括全球所有金融交易的能力带来极大的拖累。
+比特币区块链保持分布式账本的崇高承诺，但是作为一个交易平台本身却不能够覆盖近期内任何时候的全球贸易。区块链是一个八卦协议，通过该协议，所有账本状态的更改均被广播至所有参与者。正是通过这个“八卦协议”达成了有关状态、每个人账户余额的共识。如果比特币网络中的每个节点均需要知晓发生在全球范围内的每笔单个交易，会对这个网络囊括全球所有金融交易的能力带来极大的拖累。
 
 TODO:TBD
 
@@ -45,7 +45,7 @@ TODO:TBD
 通过一个散列锁和时间锁来阻碍比特币交易输出，通道参与方将不能够立刻偷取资金并且比特币可以被交易而无需担心对手偷盗。更进一步，通过使用交错安排交易超时的方式，就可能通过网络中多个中介发送资金而没有中间人偷取资金的风险。
 
 * 双向支付通道
-微支付通道允许简单的推迟交易状态在随后时间广播。合约通过为一方创建一个早于或者迟于某一日期广播交易的义务而得以强制执行。如果比特币区块链是一个去中心化的时间戳系统，就可以采用时钟作为去中心化共识的要素去决定数据的有效性，TODO-TBD（If the blockchain is a decentralized timestamping system, it is possible to use clocks as a component of decentralized consensus[5] to determine data validity, as well as present states as a method to order events[6].）
+微支付通道允许简单的推迟交易状态在随后时间广播。合约通过为一方创建一个早于或者迟于某一日期广播交易的义务而得以强制执行。如果比特币区块链是一个去中心化的时间戳系统，就可以采用时钟作为去中心化共识的要素去决定数据的有效性，TODO-TBD（If the blockchain is a decentralized timestamping system, it is possible to use clocks as a component of decentralized consensus to determine data validity, as well as present states as a method to order events.）
 
 TODO - TBD
 
