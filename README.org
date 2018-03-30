@@ -7,8 +7,8 @@ Hold my articles, TODO list, etc.
 
 * Blockchain相关文章
 1. [[file:blockchain/bitcoin-wallet-security.org][比特币钱包安全]] - 介绍比特币钱包安全相关内容，特别是冷热钱包相关主题。
-2. [[file:blockchain/Bitcoin-Lightning-Network-Introduction.org][比特币闪电网络介绍]] - 针对比特币闪电网络的简单介绍。
-3. [[file:blockchain/Bitcoin-Lightning-Network-Paper-cn.org][比特币闪电网络论文]] - 翻译比特币闪电网络论文。
+2. [[file:blockchain/Bitcoin-Lightning-Network-Introduction.org][比特币闪电网络介绍]] - 针对比特币闪电网络的简单介绍。(TODO)
+3. [[file:blockchain/Bitcoin-Lightning-Network-Paper-cn.org][比特币闪电网络论文]] - 翻译比特币闪电网络论文。(TODO)
 
 /未完待续.../
 
