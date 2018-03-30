@@ -1,0 +1,30 @@
+#+TITLE: TEST
+#+AUTHOR: Tiedang Yang - tiedang.yang@hotmail.com
+#+DATE: 2018-03-24 Sun
+
+** Image
+
+#+CAPTION: 稚拙的承诺交易
+#+ATTR_HTML: :width 50%
+[[file:../blockchain/images/LN-funding-transaction-diagram.png]]
+
+** Table Demo
+
+** CODE 文本
+#+BEGIN_SRC emacs-lisp
+;; your code goes here
+(message "Hello world.")
+
+#+END_SRC
+
+** Agenda
+
+*** TODO Read the Bitcoin Lightning Network Paper.
+    SCHEDULED: <2018-03-28 Wed> DEADLINE: <2018-04-05 Thu>
+*** TODO 完成比特币闪电网络介绍文章。
+    DEADLINE: <2018-04-01 Sun> SCHEDULED: <2018-03-30 Fri>
+*** TODO Learning Master Emacs in 21 Days.
+    DEADLINE: <2018-04-21 Sat> SCHEDULED: <2018-03-28 Wed>
+*** TODO Finish README for junahan-emacs project in Git-hub.
+    SCHEDULED: <2018-03-30 Fri>
+
