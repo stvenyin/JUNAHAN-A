@@ -6,13 +6,28 @@
 Hold my articles, TODO list, etc.
 
 * Blockchain相关文章
-1. [[file:blockchain/bitcoin-wallet-security.org][比特币钱包安全]] - 介绍比特币钱包安全相关内容，特别是冷热钱包相关主题。
-2. [[file:blockchain/Bitcoin-Lightning-Network-Introduction.org][比特币闪电网络介绍]] - 针对比特币闪电网络的简单介绍。(TODO)
-3. [[file:blockchain/Bitcoin-Lightning-Network-Paper-cn.org][比特币闪电网络论文]] - 翻译比特币闪电网络论文。(TODO)
+1. [[file:blockchain/bitcoin-wallet-security.org][比特币钱包安全]] - 介绍比特币钱包安全相关内容，特别是冷热钱包相关主题。(完工)
+2. [[file:blockchain/Bitcoin-Lightning-Network-Introduction.org][比特币闪电网络介绍]] - 针对比特币闪电网络的简单介绍。(完工)
+3. [[file:blockchain/Bitcoin-Lightning-Network-Paper-cn.org][比特币闪电网络论文]] - 翻译比特币闪电网络论文。(未完待续 ...)
 
 /未完待续.../
 
 * AI相关文章
 /未完待续.../
 
+* 2018年度推荐书单
+1. 原则 （PRINCIPLES）（生活和工作）- 瑞•达利欧（Ray Dalio）著。理顺思路，解决困惑，一本值得多次重读的好书。 
+2. 奇点临近 - Ray Kurzweil著。这本书最重要的观点是科技变革的速度遵循指数函数而非我们熟知的线形函数。
+3. 第四次工业革命 - Klaus Schwab著。
+4. 跳着踢踏舞去上班 - Carol.J.Loomis著。介绍巴菲特及其投资理念和案例的一系列文章。
+5. 聪明的投资者 - 本杰明•格雷厄姆著。巴菲特力荐 - 有史以来，关于投资的最佳著作。
+6. 高效能人士的七个习惯 - 史蒂芬•柯维（Stephen R. Covey）著。我在HP工作的时候曾经参加过的一门培训课程。一本值得多次重温的好书。
+7. 玻璃笼子（The Glass）- 尼古拉斯•卡尔（Nichelas Carr）著。
+8. 终极算法（The Master Algorithm）- 佩德罗•多明戈斯 (Pedro Domingos)著、 黄芳萍译。讲述机器学习和人工智能如何重塑世界。
+9. 人类简史：从动物到上帝（Brief History of Humankind）- 尤瓦尔•诺亚•哈拉里（Yuval Noah Harari）著。重读，我已经重读该书至少三遍。以三大革命（认知革命、农业革命、科学革命）为脉络讲述人类历史。作者思路新奇、语言幽默使得这本书精彩纷呈，值得多次重读。
+10. 哈利.波特（全集）- J.K. Rowling 著。陪儿子一起读的书。
+11. 南京大屠杀（The Rape of Nangking）- 张纯如著。历史厚重，不能拉仇恨，更不能忘却。1937年12月13日，南京大屠杀发生，77年后，2014年2月23日，中国十二届全国人大常委会第七次会议通过决议，将每年12月13日设立为南京大屠杀死难者国家公祭日。
+12. “错误”的行为（MISBEHAVING）- 理查德•泰勒（Richard H. Thaler）著。行为经济学关于世界的思考，从个人到商业和社会。值得重读。
+
+* 其他
 
