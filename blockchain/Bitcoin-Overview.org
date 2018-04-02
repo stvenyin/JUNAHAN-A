@@ -1,6 +1,7 @@
 #+TITLE: 比特币概述
 #+AUTHOR: Tiedang Yang - tiedang.yang@hotmail.com
 #+DATE: 2018-03-23
+/尚未完成 .../
 
 * 加密货币历史
 - Wei Dai - 首次引入通过解决计算难题和去中心化共识创造货币的思想， "b-money", http://www.weidai.com/bmoney.txt, 1998
@@ -12,6 +13,7 @@ Vitalik Buterin - Ethereum创始人, http://www.ethereum.org, 2016
 * 比特币创世纪
 ** 两个革命习新概念
 比特币的创建向世界引入了两个革命性的新概念：
+
 1. 比特币本身 - 一种去中心化的点对点的网上货币
 2. 区块链概念 - 结合工作量证明（PoW）的区块链构建共识网络，PoW被用于确保区块链安全的机制
 

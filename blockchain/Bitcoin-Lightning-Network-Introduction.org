@@ -2,6 +2,7 @@
 #+AUTHOR: Junahan
 #+EMAIL: junahan@outlook.com
 #+DATE: 2018-03-24 SAT
+#+LICENSE: CC BY 4.0
 
 * 摘要
 比特币闪电网络是一个去中心化的即时、大吞吐量微支付系统，该系统无需委托可信的第三方代管资金，也没有相应的风险。实现的方法是创新性的利用比特币内置脚本构建支持链下（off-chain）安全确认交易的通道网络，并利用比特币区块链作为法庭确保链下交易确认安全。
@@ -130,3 +131,8 @@
 8) BIP199 "Hashed Time-Locked Contract Transactions", https://github.com/bitcoin/bips/blob/master/bip-0199.mediawiki, 2017
 
  
+
+#+BEGIN_QUOTE
+本作品采用[[http://creativecommons.org/licenses/by/4.0/][知识共享署名 4.0 国际许可协议]]进行许可。
+#+END_QUOTE
+

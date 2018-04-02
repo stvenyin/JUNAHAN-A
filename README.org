@@ -31,3 +31,7 @@ Hold my articles, TODO list, etc.
 
 * 其他
 
+#+BEGIN_QUOTE
+本作品采用[[http://creativecommons.org/licenses/by/4.0/][知识共享署名 4.0 国际许可协议]]进行许可。
+#+END_QUOTE
+

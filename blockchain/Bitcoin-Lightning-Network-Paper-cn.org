@@ -2,14 +2,16 @@
 #+AUTHOR: Junahan
 #+EMAIL: junahan@outlook.com
 #+DATE: 2018-03-23
+#+LICENSE: CC BY 4.0 
 
-#+BEGIN_SRC 
+#+BEGIN_EXAMPLE 
 作者：Joseph Poon (joseph@lightning.network) , Thaddeus Dryja ( rx@awsomnet.org) 
 日期：2016年1月14日
 版本：0.5.9.2 （草案）
 译者：Junahan - junahan@outlook.com
-#+END_SRC
-/*提醒：尚未定稿*/
+#+END_EXAMPLE 
+
+/TODO .../
 
 * 摘要
 比特币协议能够囊括今天在所有电子交易系统上完成的全球金融交易量，无需一个单独保管的第三方持有基金，且除了一台通过家庭宽带链接互联网的计算机以外，对参与者无其他任何要求。一个去中心化系统被提议用于通过微支付通道（又称为支付通道或交易通道）网络发送交易，通过微支付通道实现链下价值转移。
@@ -187,7 +189,6 @@ TODO - TBD
 
 * 附录A 解决可延展性问题
 
-
 * 参考
 1) Satoshi Nakamoto（中本聪），"Bitcoin: A Peer-to-Peer Electronic Cash System", http://www.bitcoin.org/en/bitcoin-paper, 2009
 2) Manny Trillo. Stress Test Prepares VisaNet for http://www.visa.com/blogarchives/us/2013/10/10/stress-test-prepares-visanet-for-the-most-wonderful-time-of-the-year/index.html, Oct 2013.
@@ -208,3 +209,7 @@ TODO - TBD
 17) Pieter Wuille. BIP 0032: Hierarchical Deterministic Wallets. https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki, Feb 2012.
 18) Ilja Gerhardt and Timo Hanke. Homomorphic Payment Addresses and the Pay-to-Contract Protocol. http://arxiv.org/abs/1212.3257, Dec 2012.
 19) Nick Szabo. Formalizing and Securing Relationships on Public Net- works. http://szabo.best.vwh.net/formalize.html, Sep 1997.
+
+#+BEGIN_QUOTE
+本作品采用[[http://creativecommons.org/licenses/by/4.0/][知识共享署名 4.0 国际许可协议]]进行许可。
+#+END_QUOTE

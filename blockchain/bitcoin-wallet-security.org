@@ -2,6 +2,7 @@
 #+AUTHOR: Junahan
 #+EMAIL: junahan@outlook.com
 #+DATE: 2018-03-22
+#+LICENSE: CC BY 4.0 
 
 * 比特币钱包安全概要
 有关比特币钱包安全，可以简单的分为两类，一类是做为用户的你不可控制的安全问题,一类是做为用户的你可以控制的安全问题。之所以这样看似废话的区分，提醒你集中你的注意力在你可以控制的安全问题上。
@@ -92,3 +93,8 @@
 1) Satoshi Nakamoto（中本聪），"Bitcoin: A Peer-to-Peer Electronic Cash System", http://www.bitcoin.org/en/bitcoin-paper, 2009.
 2) Arvind Narayanan, Joseph Bonneau, Edward Felten, Andrew Miller, Steven Goldfeder, " Bitcoin and Cryptocurrency Technologies, 2016.
 3) BIP 32, "Hierarchical Deterministic Wallets", https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki, 2012.
+
+#+BEGIN_QUOTE
+本作品采用[[http://creativecommons.org/licenses/by/4.0/][知识共享署名 4.0 国际许可协议]]进行许可。
+#+END_QUOTE
+
