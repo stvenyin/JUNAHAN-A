@@ -1,0 +1,20 @@
+#+TITLE: CNN Overview
+#+AUTHOR: Junahan
+#+EMAIL: junahan@outlook
+#+DATE: 2018-04-04
+
+CNN 全名是卷积神经网络（Convolution Nurion Network），是神经网络中一种常见的网络结构设计，特别在计算机视觉领域广泛应用。
+
+* 数据集
+- ImageNet Classification - 
+- COCO Object Detection - 
+- VOC Image Segmentation - 
+
+* 各类 CNN 变种
+
+** MobileNet and MobileNetV2
+
+* 参考文献
+
+1. Inverted Residuals and Linear Bottlenecks: Mobile Networks forClassification, Detection and Segmentation, 
+2. MobileNetV2 源代码，

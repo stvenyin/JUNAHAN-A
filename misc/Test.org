@@ -1,5 +1,6 @@
 #+TITLE: TEST
-#+AUTHOR: Tiedang Yang - tiedang.yang@hotmail.com
+#+AUTHOR: Junahan
+#+EMAIL: junahan@outlook.com
 #+DATE: 2018-03-24 Sun
 
 ** Image
@@ -23,4 +24,42 @@ AAA
 #+END_QUOTE
 
 ** Agenda
+
+** SRC in EIN
+#+BEGIN_SRC ein :session 8888/Untitled.ipynb :image output.png
+import matplotlib.pyplot as plt
+import numpy as np
+
+%matplotlib inline
+x = np.linspace(0, 1, 100)
+y = np.random.rand(100,1)
+plt.plot(x,y)
+#+END_SRC
+
+** SRC with ob-ipython
+- 为了获得图像输出，需要在开头配置 %matplotlib inline
+
+#+BEGIN_SRC ipython :session :results raw drawer
+%matplotlib inline
+import matplotlib.pyplot as plt
+import numpy as np
+#+END_SRC
+
+#+BEGIN_SRC ipython :session :result file
+plt.hist(np.random.randn(20000), bins=200)
+#+END_SRC
+
+** SRC with python
+#+BEGIN_SRC python :session :results file 
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+fig=plt.figure(figsize=(3,2))
+plt.plot([1,3,2])
+fig.tight_layout()
+plt.savefig('images/myfig.pdf')
+#+END_SRC
+
+#+RESULTS:
+| <matplotlib.lines.Line2D | object | at | 0x1816bc5630> |
 
