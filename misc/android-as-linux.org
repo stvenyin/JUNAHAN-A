@@ -37,9 +37,6 @@ Start the server by executing sshd (which will start it on the default port 8022
 Since Termux is a single-user system you may connect as any user - regardless of your specified username you will login as the only Termux user available.
 The Termux sshd binary does not support password logins, so a key needs to be authorized in ~/.ssh/authorized_keys before connecting. Use ssh-keygen to generate a new one if desired.
 
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQx7wmY7QKuOnW5nvmSsHOTxPGp85h3VtPfC+e8tJguz15B1XvlvNSh74iA49VWWPpUSo1uu9DUZ64rMfzACozKCd/wda/ZvIMcHYe6l1ELLtjO/At+lOKvXkCqTYbDlwpMaLF5hTJ/yDBBU4vUF06X4uvoEscaZmm0Nx4uX1zsl8Kcbm56kT8hifJnVXHgzRB4C12pKMC4xXrXRpQCsAMRnhxzj82Od1KYTpH+X2XI2WxcCl9ZzWsnXODsYiM5Rp2lXNp5pOJ5Aa1spgvfz5n310DRlsi7TjlSJvwV5x7G8yR1ZK1NevSIq1kHp5cp/sszbxtXX7Wc/stzgBWtFp9 jumpingeagle@JumpingEagledeMacBook-Pro.local
-
-
 * 应用
 - wget - 
 - emacs - 
@@ -50,4 +47,5 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQx7wmY7QKuOnW5nvmSsHOTxPGp85h3VtPfC+e8tJg
 1. F-Droid，https://f-droid.org/packages/com.termux/.
 3. Termux，https://termux.com/.
 5. Termux Wiki, https://wiki.termux.com/wiki/Main_Page.
+7. Run an ssh server on your android with termux,  https://glow.li/technology/2015/11/06/run-an-ssh-server-on-your-android-with-termux/
 
