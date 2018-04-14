@@ -1,0 +1,53 @@
+#+TITLE: 使用 Android 作为 Linux 机器
+#+AUTHOR: Junahan
+#+EMAIL: junahan@outlook.com 
+#+DATE: 2018-03-30
+
+#+BEGIN_QUOTE
+本文介绍的方法仅在华为 Honor 7X 手机上通过测试。
+#+END_QUOTE
+
+* 摘要
+今天的 Android 智能手机通常配备了多核处理器和高达 4G 内存，运行速度也是不在话下。本文介绍如何配置 Android 手机作为 Linux 使用。要做到这一点，你需要的是一款称之为 Termux 的应用。Termux 是一款 Android 系统的终端模拟器和 Linux 运行环境。
+
+* 安装 Termux
+- 下载 [[https://f-droid.org/packages/com.termux/][F-Driod]] 并安装 - F-Droid 用来统一管理和更新多个开源工具包。
+- 打开 F-Droid 应用，搜索 Termux 并安装。
+- 使用 F-Droid，搜索 Hacker's Keyboard 应用并安装 - Hacker's Keyboard 允许在 Android 上运行类 PC 上的键盘布局（带有控制键）。
+- 打开 Termux 终端，使用 =pkg= 命令安装你需要的 Linux 系统软件。
+
+* 使用SSHD 服务
+** 安装 SSHD
+运行下列命令，系统会安装 =openssh= 并产生相应的密钥对，你可以在 =.ssh= 目录找到密钥对。
+#+BEGIN_SRC sh
+$ pkg install openssh
+#+END_SRC
+
+** Using the SSH client
+By installing the openssh package (by executing apt install openssh) you may SSH into remote systems, optionally putting private keys or configuration under $HOME/.ssh/.
+If you wish to use an SSH agent to avoid entering passwords, the Termux openssh package provides a wrapper script named ssha (note the ‘a’ at the end) for ssh which:
+1. Starts the ssh agent if necessary (or connect to it if already running).
+2. Runs ssh-add if necessary.
+3. Runs ssh with the provided arguments.
+This means that the agent will prompt for a key password at first run, but remember the authorization for subsequent runs.
+
+** Using the SSH server
+The sshd server is included in the openssh package and allows you to connect to your Android device over ssh.
+Start the server by executing sshd (which will start it on the default port 8022) and run logcat -s 'syslog:*' to view the log output from the server process. Execute pkill sshd to stop the server.
+Since Termux is a single-user system you may connect as any user - regardless of your specified username you will login as the only Termux user available.
+The Termux sshd binary does not support password logins, so a key needs to be authorized in ~/.ssh/authorized_keys before connecting. Use ssh-keygen to generate a new one if desired.
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQx7wmY7QKuOnW5nvmSsHOTxPGp85h3VtPfC+e8tJguz15B1XvlvNSh74iA49VWWPpUSo1uu9DUZ64rMfzACozKCd/wda/ZvIMcHYe6l1ELLtjO/At+lOKvXkCqTYbDlwpMaLF5hTJ/yDBBU4vUF06X4uvoEscaZmm0Nx4uX1zsl8Kcbm56kT8hifJnVXHgzRB4C12pKMC4xXrXRpQCsAMRnhxzj82Od1KYTpH+X2XI2WxcCl9ZzWsnXODsYiM5Rp2lXNp5pOJ5Aa1spgvfz5n310DRlsi7TjlSJvwV5x7G8yR1ZK1NevSIq1kHp5cp/sszbxtXX7Wc/stzgBWtFp9 jumpingeagle@JumpingEagledeMacBook-Pro.local
+
+
+* 应用
+- wget - 
+- emacs - 
+- openssh - 
+- git - 
+
+* 参考文献
+1. F-Droid，https://f-droid.org/packages/com.termux/.
+3. Termux，https://termux.com/.
+5. Termux Wiki, https://wiki.termux.com/wiki/Main_Page.
+
