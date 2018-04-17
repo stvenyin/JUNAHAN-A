@@ -1,8 +1,14 @@
-#+AUTHOR: Junahan
-#+EMAIL: junahan@outlook.com 
-#+DATE: 2018-03-30
+# -*- mode: org; coding: utf-8; -*-
+#+TITLE:      Junahan Project A
+#+AUTHOR:     Junahan
+#+EMAIL:      junahan@outlook.com 
+#+DATE:       2018-03-30
+#+LANGUAGE:   CN
+#+OPTIONS:    H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:    TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 
-* Junahan's A 
+* Overview 
 Hold my articles, TODO list, etc.
 
 * Blockchain相关文章
@@ -30,7 +36,7 @@ Hold my articles, TODO list, etc.
 11. 南京大屠杀（The Rape of Nangking）- 张纯如著。历史厚重，不能拉仇恨，更不能忘却。1937年12月13日，南京大屠杀发生，77年后，2014年2月23日，中国十二届全国人大常委会第七次会议通过决议，将每年12月13日设立为南京大屠杀死难者国家公祭日。
 12. “错误”的行为（MISBEHAVING）- 理查德•泰勒（Richard H. Thaler）著。行为经济学关于世界的思考，从个人到商业和社会。值得重读。
 
-* 其他
+* MISC
 
 #+BEGIN_QUOTE
 本作品采用[[http://creativecommons.org/licenses/by/4.0/][知识共享署名 4.0 国际许可协议]]进行许可。
