@@ -13,12 +13,12 @@ Interledger 协议（ILP）是整个 Interledger 协议套件的核心。
 
 Interledger 架构大多灵感来自于互联网架构 RFC，包括 [[https://tools.ietf.org/html/rfc1122][RFC 1122]]，[[https://tools.ietf.org/html/rfc1123][RFC 1123]] 和 [[https://tools.ietf.org/html/rfc1009][RFC 1009]]。
 
-* Interledger 概念模型 #<<il-model>>
+* Interledger 概念模型 <<il-model>>
 #+CAPTURE: 
 #+ATTR_HTML: :width: 50%
 [[file:images/interledger-model.svg]]
 
-** 连接器 #<<il-connectors>>
+** 连接器 <<il-connectors>>
 连接器是一个系统，该系统根据 Interledger 数据包目的地地址提供数据包转发服务。数据包跨越链接（账户）在发送方，连接器和接收方被转发。
 
 Interledger 数据包描述的金额可能被单独结算也可能聚合统称为账本的多种类型的外部支付系统进行结算。账本包含区块链，也包含银行、点到点支付方案、自动清算中心、移动支付机构、甚至中央银行营运的实时全额支付系统以及众多其他类型系统。一些账本支持非常高效的支付清算，另外一些却很慢。一般而言，越快和越便宜的账本，账户支付越频繁。更多不同账本类型和支付清算策略，请参阅 [[https://interledger.org/rfcs/0022-hashed-timelock-agreements][IL-RFC 22]]。支付清算不直接在发送方和接收方进行。每个连接器仅和它直接邻居进行支付清算。
@@ -27,7 +27,7 @@ Interledger 数据包描述的金额可能被单独结算也可能聚合统称�
 
 一个单一的 Inteledger 数据包在到达目的地的途中可能经过任意多个连接器。基于效率的原因，每个连接器寻找到达目的地的最短路径，并在这个路径上转发数据包。有关在 Inteledger 上路由的更多信息，请参阅[[https://interledger.org/rfcs/0010-connector-to-connector-protocol][ IL-RFC 10]] 。
 
-** 发送方 #<<il-sender>>
+** 发送方 <<il-sender>>
 发送方发送 Inteledger 数据包：
 1. 在自己和接受者之间传送价值或者
 2. 一种类型到另外一种类型资产的价值交换
@@ -38,7 +38,7 @@ Interledger 数据包描述的金额可能被单独结算也可能聚合统称�
 
 发送方通常选择一个连接器并通过该连接器发送所有交易。如果他们对他们的连接器不满意，他们可以随时切换到一个不同的连接器。经验丰富的发送方可能自己也运行一个连接器并且和多个连接器保持链接关系以最小化交易成本和最大化可用性。
 
-** 接收方 #<<il-receiver>>
+** 接收方 <<il-receiver>>
 一个接收方接收到达的 Interledger 数据包并为每一个数据包提供一个加密收据并沿着相同的路径返回给发送方。有关加密报文交换的更多信息，请参阅[[il-protocol-flow][交易流程]]一节。
 
 *Interledger 确保发送方的资金在多个支付节点之间安全传送并且不能够由于缺陷或者恶意中介节点被偷盗（参阅 [[il-security][Interledger 安全]]）。*
@@ -48,11 +48,11 @@ Interledger 协议套件能够被应用于任意公共的或者私有的对等�
 
 "The Inteledger" 是 Interledger 协议套件的一个公共实例，
 
-* Interledger 安全 #<<il-security>>
+* Interledger 安全 <<il-security>>
 
-** Interledger 协议流程 #<<il-protocol-flow>>
+** Interledger 协议流程 <<il-protocol-flow>>
 
-* Interledger 协议套件 #<<il-protocol-suite>>
+* Interledger 协议套件 <<il-protocol-suite>>
 
 * 参阅文献
 1. Interledger Architecture, https://interledger.org/rfcs/0001-interledger-architecture/
