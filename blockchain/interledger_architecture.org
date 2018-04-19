@@ -48,14 +48,23 @@ Interledger 数据包描述的金额可能被单独结算也可能聚合统称�
 
 *Interledger 确保发送方的资金在多个支付节点之间安全传送并且不能够由于缺陷或者恶意中介节点被偷盗（参阅 [[#il-security][Interledger 安全]]）。*
 
-** TODO The Interledger <<il-the-interledger>>
+** The Interledger <<il-the-interledger>>
 Interledger 协议套件能够被应用于任意公共的或者私有的对等连接器节点组成的网络，不存在一个所有节点都必须接入的单一网络。
 
-"The Inteledger" 是 Interledger 协议套件的一个公共实例，
+"The Inteledger" 是 Interledger 协议套件的一个公共实例，它致力于提供一个一致的全球化金融基础设施。最好是任何接入 Interledger 的一方均可以和另外一方交易，各自使用自己的货币和选则自己的连接器。
 
-* TODO Interledger 安全 <<il-security>>
+* Interledger 安全 <<il-security>>
+*Inteledger 使用 /条件转移/ 以确保支付可以安全的跨多跳路由甚至通过不信任连接器。* 每方知需要信任其直接链接的邻居节点，而不管有多少连接器参与转发支付报文。连接器要负担一些风险，但风险可控且主要取决于连接器邻居节点的选择。
+#+BEGIN_QUOTE
+*提示:* 条件转移或者 /授权保留/ 等效于[[http://foldoc.org/two-phase%20commit][两阶段提交]]。
+#+END_QUOTE
 
-** Interledger 协议流程 <<il-protocol-flow>>
+** TODO Interledger 协议流程 <<il-protocol-flow>>
+发送方首先发送一个 Interledger =prepare= 报文。每个连接器可能或者转发该 =prepare= 报文，或者在出错的情况下返回一个 =reject= 报文。如果 =prepare= 报文到达接收方，取决于接收方是否愿意接受这个 Interledger 支付，他们可能回复一个 =fulfill= 或者 =reject= 报文。无论那种情况，结果报文沿相同的路径传回给发送者。
+
+每个 =prepare= 报文包含一个密码学条件和过期时间。如果连接器在过期时间之前接收并转发 =fulfill= 报文，那么 =prepare= 报文就被看作是满足条件，连接器为双方创建一个契约以发送结算报文给连接器。如果 =fulfill= 报文没有在过期时间之前收到，连接器将认为 =prepare= 报文过期而不创建契约。
+
+受 [[http://lightning.network][Lightning Network]] 的启发，Interledger 使用 [[https://en.wikipedia.org/wiki/SHA-2][SHA-256]] 哈希摘要函数作为 =prepare= 报文的条件。 =fulfill= 报文需包含一个由 =prepare= 报文中哈希值确定的有效 32 字节原像。连接器负责验证是否满足条件。
 
 * TODO Interledger 协议套件 <<il-protocol-suite>>
 
