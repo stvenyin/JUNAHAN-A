@@ -1,72 +1,137 @@
 # -*- mode: org; coding: utf-8; -*-
-#+TITLE: Interledger 架构
-#+AUTHOR: Junahan
-#+EMAIL: junahan@outlook.com
-#+DATE: 2018-04-02
-#+LANGUAGE:   CN
-#+OPTIONS:    H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
-#+OPTIONS:    TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
-#+LICENSE: CC BY 4.0
-/TODO .../
+#+TITLE:       互联账本架构
+#+AUTHOR:      Junahan
+#+EMAIL:       junahan@outlook.com
+#+DATE:        2018-04-02
+#+LANGUAGE:    CN
+#+OPTIONS:     H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:     TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+LICENSE:     CC BY 4.0
 
-Interledger 为跨越不同账本的多种资产提供安全支付支持。该架构设计由一个 Interledger 支付概念模型，安全支付机制，和一系列协议共同组成并实现。
+互联账本 (Interledger) 为跨越不同账本的多种资产提供安全支付支持。该架构设计由一个互联账本支付概念模型，安全支付机制，和一系列协议共同组成并实现。
 
-Interledger 协议（ILP）是整个 Interledger 协议套件的核心。
+互联账本协议（ILP）是整个互联账本协议套件的核心。
 
-非正式地，整个 Interledger 堆栈又是被成为 “ILP”，然而，从技术上讲，Interledger 协议仅仅是堆栈的一层。
+非正式地，整个互联账本堆栈又是被成为 “ILP”，然而，从技术上讲，互联账本协议仅仅是堆栈的一层。
 
-Interledger 架构大多灵感来自于互联网架构 RFC，包括 [[https://tools.ietf.org/html/rfc1122][RFC 1122]]，[[https://tools.ietf.org/html/rfc1123][RFC 1123]] 和 [[https://tools.ietf.org/html/rfc1009][RFC 1009]]。
+互联账本架构大多灵感来自于互联网架构 RFC，包括 [[https://tools.ietf.org/html/rfc1122][RFC 1122]]，[[https://tools.ietf.org/html/rfc1123][RFC 1123]] 和 [[https://tools.ietf.org/html/rfc1009][RFC 1009]]。
 
-* Interledger 概念模型 <<il-model>>
+* 互联账本概念模型 <<il-model>>
 #+CAPTURE: 
 #+ATTR_HTML: :width: 50%
 [[file:images/interledger-model.svg]]
 
 ** 连接器 <<il-connectors>>
-连接器是一个系统，该系统根据 Interledger 数据包目的地地址提供数据包转发服务。数据包跨越链接（账户）在发送方，连接器和接收方被转发。
+连接器是一个系统，该系统根据互联账本数据包目的地地址提供数据包转发服务。数据包跨越链接（账户）在发送方，连接器和接收方被转发。
 
-Interledger 数据包描述的金额可能被单独结算也可能聚合统称为账本的多种类型的外部支付系统进行结算。账本包含区块链，也包含银行、点到点支付方案、自动清算中心、移动支付机构、甚至中央银行营运的实时全额支付系统以及众多其他类型系统。一些账本支持非常高效的支付清算，另外一些却很慢。一般而言，越快和越便宜的账本，账户支付越频繁。更多不同账本类型和支付清算策略，请参阅 [[https://interledger.org/rfcs/0022-hashed-timelock-agreements][IL-RFC 22]]。支付清算不直接在发送方和接收方进行。每个连接器仅和它直接邻居进行支付清算。
+互联账本数据包描述的金额可能被单独结算也可能聚合统称为账本的多种类型的外部支付系统进行结算。账本包含区块链，也包含银行、点到点支付方案、自动清算中心、移动支付机构、甚至中央银行营运的实时全额支付系统以及众多其他类型系统。一些账本支持非常高效的支付清算，另外一些却很慢。一般而言，越快和越便宜的账本，账户支付越频繁。更多不同账本类型和支付清算策略，请参阅 [[https://interledger.org/rfcs/0022-hashed-timelock-agreements][IL-RFC 22]]。支付清算不直接在发送方和接收方进行。每个连接器仅和它直接邻居进行支付清算。
 
-连接器可能在转发数据包之前，通过从每个数据包里面减扣少量金额的方式从 Interledger 支付中产生收入。链接器也可能将以一种货币或者资产类型计价的数据包兑换称以另外一种货币或者资产类型计价的数据包。连接器接受一些风险，他们在决定他们商业模型的时候必须要考虑到这些风险。有关更加详细的风险和防范措施，请参阅[[https://interledger.org/rfcs/0018-connector-risk-mitigations][ IL-RFC 18]]。
+连接器可能在转发数据包之前，通过从每个数据包里面减扣少量金额的方式从互联账本支付中产生收入。链接器也可能将以一种货币或者资产类型计价的数据包兑换称以另外一种货币或者资产类型计价的数据包。连接器接受一些风险，他们在决定他们商业模型的时候必须要考虑到这些风险。有关更加详细的风险和防范措施，请参阅[[https://interledger.org/rfcs/0018-connector-risk-mitigations][ IL-RFC 18]]。
 
-一个单一的 Inteledger 数据包在到达目的地的途中可能经过任意多个连接器。基于效率的原因，每个连接器寻找到达目的地的最短路径，并在这个路径上转发数据包。有关在 Inteledger 上路由的更多信息，请参阅[[https://interledger.org/rfcs/0010-connector-to-connector-protocol][ IL-RFC 10]] 。
+一个单一的互联账本数据包在到达目的地的途中可能经过任意多个连接器。基于效率的原因，每个连接器寻找到达目的地的最短路径，并在这个路径上转发数据包。有关在互联账本上路由的更多信息，请参阅[[https://interledger.org/rfcs/0010-connector-to-connector-protocol][ IL-RFC 10]] 。
 
 ** 发送方 <<il-sender>>
-发送方发送 Inteledger 数据包：
+发送方发送互联账本数据包：
 1. 在自己和接受者之间传送价值或者
 2. 一种类型到另外一种类型资产的价值交换
 
-在传送价值的时候，发送方首先要从接收方获取交易的具体细节，包括接受方的 ILP 地址等。一旦发送发获得这些具体信息，他就可以开始发送以该 ILP 地址为目的地的 Interledger 数据包。一个大的支付可能被分割为许多小的片并在接收方被重新装配恢复。有关完整支付流程的更多信息，请参阅 [[#il-protocol-suite][Interledger 协议套件]]一节。
+在传送价值的时候，发送方首先要从接收方获取交易的具体细节，包括接受方的 ILP 地址等。一旦发送发获得这些具体信息，他就可以开始发送以该 ILP 地址为目的地的互联账本数据包。一个大的支付可能被分割为许多小的片并在接收方被重新装配恢复。有关完整支付流程的更多信息，请参阅 [[#il-protocol-suite][互联账本协议套件]]一节。
 
 一个发送方也可能同时扮演发送方和接收方的角色以交换资产。在这种情况下，他能够发送一种资产而接收另外一种资产，从而有效的交换不同类型的资产。
 
 发送方通常选择一个连接器并通过该连接器发送所有交易。如果他们对他们的连接器不满意，他们可以随时切换到一个不同的连接器。经验丰富的发送方可能自己也运行一个连接器并且和多个连接器保持链接关系以最小化交易成本和最大化可用性。
 
 ** 接收方 <<il-receiver>>
-一个接收方接收到达的 Interledger 数据包并为每一个数据包提供一个加密收据并沿着相同的路径返回给发送方。有关加密报文交换的更多信息，请参阅[[#il-protocol-flow][交易流程]]一节。
+一个接收方接收到达的互联账本数据包并为每一个数据包提供一个加密收据并沿着相同的路径返回给发送方。有关加密报文交换的更多信息，请参阅[[#il-protocol-flow][交易流程]]一节。
 
-*Interledger 确保发送方的资金在多个支付节点之间安全传送并且不能够由于缺陷或者恶意中介节点被偷盗（参阅 [[#il-security][Interledger 安全]]）。*
+互联账本确保发送方的资金在多个支付节点之间安全传送并且不能够由于缺陷或者恶意中介节点被偷盗（参阅[[#il-security][互联账本安全]]）。*
 
-** The Interledger <<il-the-interledger>>
-Interledger 协议套件能够被应用于任意公共的或者私有的对等连接器节点组成的网络，不存在一个所有节点都必须接入的单一网络。
+** 互联账本 <<il-the-interledger>>
+互联账本协议套件能够被应用于任意公共的或者私有的对等连接器节点组成的网络，不存在一个所有节点都必须接入的单一网络。
 
-"The Inteledger" 是 Interledger 协议套件的一个公共实例，它致力于提供一个一致的全球化金融基础设施。最好是任何接入 Interledger 的一方均可以和另外一方交易，各自使用自己的货币和选则自己的连接器。
+"互联账本" 是互联账本协议套件的一个公共实例，它致力于提供一个一致的全球化金融基础设施。最好是任何接入互联账本的一方均可以和另外一方交易，各自使用自己的货币和选则自己的连接器。
 
-* Interledger 安全 <<il-security>>
-*Inteledger 使用 /条件转移/ 以确保支付可以安全的跨多跳路由甚至通过不信任连接器。* 每方知需要信任其直接链接的邻居节点，而不管有多少连接器参与转发支付报文。连接器要负担一些风险，但风险可控且主要取决于连接器邻居节点的选择。
+* 互联账本安全 <<il-security>>
+*互联账本使用 /条件转移/ 以确保支付可以安全的跨多跳路由甚至通过不信任连接器。* 每方只需要信任其直接链接的邻居节点，而不管有多少连接器参与转发支付报文。连接器要负担一些风险，但风险可控且主要取决于连接器邻居节点的选择。
 #+BEGIN_QUOTE
 *提示:* 条件转移或者 /授权保留/ 等效于[[http://foldoc.org/two-phase%20commit][两阶段提交]]。
 #+END_QUOTE
 
-** TODO Interledger 协议流程 <<il-protocol-flow>>
-发送方首先发送一个 Interledger =prepare= 报文。每个连接器可能或者转发该 =prepare= 报文，或者在出错的情况下返回一个 =reject= 报文。如果 =prepare= 报文到达接收方，取决于接收方是否愿意接受这个 Interledger 支付，他们可能回复一个 =fulfill= 或者 =reject= 报文。无论那种情况，结果报文沿相同的路径传回给发送者。
+** TODO 互联账本协议流程 <<il-protocol-flow>>
+发送方首先发送一个互联账本 =prepare= 报文。每个连接器可能或者转发该 =prepare= 报文，或者在出错的情况下返回一个 =reject= 报文。如果 =prepare= 报文到达接收方，取决于接收方是否愿意接受这个互联账本支付，他们可能回复一个 =fulfill= 或者 =reject= 报文。无论那种情况，结果报文沿相同的路径传回给发送者。
 
-每个 =prepare= 报文包含一个密码学条件和过期时间。如果连接器在过期时间之前接收并转发 =fulfill= 报文，那么 =prepare= 报文就被看作是满足条件，连接器为双方创建一个契约以发送结算报文给连接器。如果 =fulfill= 报文没有在过期时间之前收到，连接器将认为 =prepare= 报文过期而不创建契约。
+每个 =prepare= 报文包含一个密码条件和过期时间。如果连接器在过期时间之前接收并转发 =fulfill= 报文，那么 =prepare= 报文就被看作是满足条件，连接器为双方创建一个契约以发送结算报文给连接器。如果 =fulfill= 报文没有在过期时间之前收到，连接器将认为 =prepare= 报文过期而不创建契约。
 
-受 [[http://lightning.network][Lightning Network]] 的启发，Interledger 使用 [[https://en.wikipedia.org/wiki/SHA-2][SHA-256]] 哈希摘要函数作为 =prepare= 报文的条件。 =fulfill= 报文需包含一个由 =prepare= 报文中哈希值确定的有效 32 字节原像。连接器负责验证是否满足条件。
+受 [[http://lightning.network][Lightning Network]] 的启发，互联账本使用 [[https://en.wikipedia.org/wiki/SHA-2][SHA-256]] 哈希摘要函数作为 =prepare= 报文的条件。 =fulfill= 报文需包含一个由 =prepare= 报文中哈希值确定的有效 32 字节原像。连接器负责验证是否满足条件。[[#transport-layer][传输层]]协议被发送者和接收者用来产生特定报文的条件。
 
-* TODO Interledger 协议套件 <<il-protocol-suite>>
+结算要么仅仅基于连接器和伙伴间的信任，要么被具有结算功能账本支持。
+
+由于 =prepare= 报文自己创建到接收者的通道，连接器仅仅预留合适金额的资金，他们上尚没有结算这些资金。伙伴节点之间尚没有达成契约，因此如果一个连接器失败或者试图重定向报文，并没有人因此失去资金。
+
+当接收方收到 =prepare= 报文，他们返回 =fulfill= 报文以获取他们的资金。每个连接器使用相同的 =fulfill= 报文来分别从发送 =prepare= 报文给他们的一方获取资金。
+
+当从发送方账户转发 =prepare= 报文到接收方账户时，每个连接器将以一个固定的值依次减小超时时间。这提供了一个固定的时间窗以随后从接收方传回 =fulfill= 报文至发送方。就算是报文可能在最后一刻被发送方接收到，一个连接器也必须拥有公平的机会以在接收方账户超时之前传回 =fulfill= 报文。否则，会导致连接器已经承担向接收一方账户付款的义务，而发送一方的交易对手却没有义务付款给他们。
+
+有关更多流程的详情，请参阅 [[https://interledger.org/rfcs/0027-interledger-protocol-4][ILP 第四版规范]]。
+
+#+BEGIN_QUOTE
+*注意:* 互联账本仅仅支持在白皮书中描述的通用模型（Universal mode）。原子模型（Atomic mode）能够根据需要被比邻的参与者子集用于互联账本支付，但这个模型并非标准的一部分。
+#+END_QUOTE
+
+** 连接器风险及减损
+互联账本连接器接受一些风险以换取他们因促进交易而产生的收入。在互联账本的交易流程中，连接器在有权从发送方账户获得资金之前，已经承担向接收方账户付款的义务。在每个连接器接收到 =fulfill= 报文后，他们有一个时间窗口以交付 =fulfill= 报文给他们发送方账户交易伙伴。连接器如过及时交付 =fulfill= 报文失败，则会导致金钱损失。
+
+如果一些参与交易的连接器及时收到 =fulfill= 报文而另外一些没有，接收者将知道报文被收到而发送者却不知道。通常，一个互联账本报文是一个大的事务或者支付流中的一部分，因此当发送方收到下一个报文的响应的时候，他也许会发现发生的情况。发送者也可能重试发送过期报文。精确的有关发送者和接收者重试方面的行为被传输层定义。例如，有关预分享密钥（PSK）传输层协议的描述可以参考 [[https://interledger.org/rfcs/0016-pre-shared-key][IL-RFC 16]] 。
+
+及时交付 =fulfill= 报文失败是连接器面临的主要风险，连接器可以利用一些额外的策略来较少和控制这些风险。有关详情，请参阅 [[https://interledger.org/rfcs/0018-connector-risk-mitigations][IL-RFC 18]] 。
+
+* TODO 互联账本协议套件 <<il-protocol-suite>>
+互联账本堆栈可以被划分为四层：
+#+CAPTION: 互联账本堆栈分层
+#+ATTR_HTML: :width 50%
+[[file:images/il-stack-layers.png]]
+
+*** 应用层
+应用层是互联账本协议套件的最上面一层，这一层负责：
+1. 目的地账户发现
+2. 目标金额协商
+3. 传输协议的选择和与之相关的细节通讯，如共享秘密或者条件
+4. 额外细节可在 ILP 报文数据中沟通
+
+一个应用层协议的例子是[[https://interledger.org/rfcs/0009-simple-payment-setup-protocol][简单支付安排协议 (SPSP)]]。SPSP 使用 Webfinger ([[https://tools.ietf.org/html/rfc7033][RFC 7033]])，它是一个基于安全套接字（HTTPS-based）的协议，用来沟通目的地 ILP 地址和相关细节，并使用预共享密钥（PSK）作为传输层协议。
+
+*** 传输层
+传输层协议是一个被互联账本发送方和接收方使用的端到端（end-to-end）协议，它被用于确定支付条件和其他细节。为发送方提供保证非常依赖于所使用的传输层协议类型。
+
+当前有两个传输层协议：
+- [[https://interledger.org/rfcs/0016-pre-shared-key][预共享密钥 (PSK)]]
+采用预共享密钥协议，发送方和接收方使用一个共享密文来产生支付条件、ILP 报文鉴定、和加密应用数据。使用 PSK，发送者保证满足转移条件是证实接收者获得支付的标志，前提是没有发送者和接收者以外的一方具有共享密文并且发送者不提交 =fulfillment= 。
+
+*推荐在大多数应用案例中使用 PSK*
+
+- [[https://interledger.org/rfcs/0011-interledger-payment-request][互联账本支付请求 (IPR)]]
+在互联账本支付请求协议中，接收者产生支付细节和条件。接收者不共享用于产生条件和 =fulfillment= 的密文给发送方以及任何其他方，但是发送者必须在发送每次支付前要求接收者产生和共享条件。IPR is primarily useful for building non-repudiable application layer protocols, in which the sender's posession of the fulfillment proves to third parties that the sender has paid the receiver for a specific obligation.
+
+*** TODO 互联协议层
+The Interledger layer is responsible for forwarding Interledger packets between the sender and receiver. There is only one protocol on this layer: the Interledger Protocol (ILP).
+
+The [[https://interledger.org/rfcs/0003-interledger-protocol][Interledger Protocol (ILP)]] is the core of the Interledger stack and defines standard address and packet formats that instruct connectors where to forward a packet. It also defines the [[#il-protocol-flow][protocol flow]] described above.
+
+[[https://interledger.org/rfcs/0015-ilp-addresses][Interledger Addresses]] provide a universal way to address senders, receivers and connectors. Interledger addresses are hierarchical, dot-separated strings where the left-most segment is most significant. An example address might look like: 
+=g.us.acmebank.acmecorp.sales.199= or 
+=g.crypto.bitcoin.1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2=.
+
+When initiating an Interledger payment, the sender sends an ILP =prepare= packet to the connector. The packet is a binary message that includes the destination account, amount, condition, timeout, and transport-layer data for the receiver. The packet is relayed by connectors.
+
+*** TODO 账本层
+In order to move packets from one party (sender, receiver or connector) to another, the parties need a facility for data transmission and, optionally, money transmission for settlement. These facilities may be provided by different protocols belonging to the so-called ledger layer. Which protocol is used between two parties is up to those parties to choose.
+
+See [[https://interledger.org/rfcs/0017-ledger-requirements][IL-RFC 17]] for a full description of the ledger layer requirements.
+
+Most implementations of Interledger use a plugin architecture to abstract the differences between different ledger layer protocols. For an example of this, see [[https://interledger.org/rfcs/0004-ledger-plugin-interface][IL-RFC 4]], which defines the interface for the Javascript implementation.
+
+参看[[https://www.w3.org/community/interledger/participants][贡献者]]列表                        文档许可采用 [[https://creativecommons.org/licenses/by/4.0/][CC BY 4.0]]
 
 * 参阅文献
 1. Interledger Architecture, https://interledger.org/rfcs/0001-interledger-architecture/
@@ -74,4 +139,3 @@ Interledger 协议套件能够被应用于任意公共的或者私有的对等�
 #+BEGIN_QUOTE
 本作品采用[[http://creativecommons.org/licenses/by/4.0/][知识共享署名 4.0 国际许可协议]]进行许可。
 #+END_QUOTE
-
