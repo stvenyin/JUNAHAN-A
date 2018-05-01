@@ -1,0 +1,67 @@
+#+TITLE:              Open Source Mirrors
+#+AUTHOR:         Junahan
+#+EMAIL:             junahan@outlook.com
+#+DATE:              2018-04-03
+#+LANGUAGE:    CN
+#+OPTIONS:        H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:        TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT:   view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+LICENSE:         CC BY 4.0
+
+* 国内开源软件 Mirrors
+- 清华大学源地址：http://mirrors.tuna.tsinghua.edu.cn
+- 网易开源镜像站：http://mirrors.163.com
+- 阿里开源镜像站：https://opsx.alibaba.com/mirror
+- 浙江大学开源镜像站点：https://opsx.alibaba.com/mirror
+- 中科大开源镜像站点：http://mirrors.ustc.edu.cn
+
+* HOMEBREW 国内源
+** 清华大学源
+*** Homebrew Bottles
+- 临时替换
+#+BEGIN_SRC 
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+#+END_SRC
+- 长期替换
+#+BEGIN_SRC 
+echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles' >> ~/.bash_profile
+source ~/.bash_profile
+#+END_SRC
+
+*** Homebrew Core 
+#+BEGIN_SRC
+cd "$(brew --repo)"
+git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+
+brew update
+#+END_SRC
+
+** 中科大源
+中国科技大学开源镜像源地址 - http://mirrors.ustc.edu.cn
+
+*** Homebrew Cask 软件仓库
+Homebrew cask 软件仓库，提供 macOS 应用和大型二进制文件。
+
+替换为 USTC 源：
+#+BEGIN_SRC 
+cd "$(brew --repo)"/Library/Taps/caskroom/homebrew-cask
+git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git
+#+END_SRC
+
+重置为官方源：
+#+BEGIN_SRC 
+cd "$(brew --repo)"/Library/Taps/caskroom/homebrew-cask
+git remote set-url origin https://github.com/caskroom/homebrew-cask
+#+END_SRC
+
+* ELPA 国内源
+使用清华大学 ELPA 源 - https://mirrors.tuna.tsinghua.edu.cn/help/elpa/
+
+* Anaconda 源
+使用清华大学 Anaconda 源 - https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/
+
+
+

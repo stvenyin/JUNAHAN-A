@@ -9,6 +9,7 @@ CNN 全名是卷积神经网络（Convolution Nurion Network），是神经网�
 - ImageNet Classification - 
 - COCO Object Detection - 
 - VOC Image Segmentation - 
+- Google Open Images - 
 
 * 各类 CNN 变种
 
@@ -17,4 +18,5 @@ CNN 全名是卷积神经网络（Convolution Nurion Network），是神经网�
 * 参考文献
 
 1. Inverted Residuals and Linear Bottlenecks: Mobile Networks forClassification, Detection and Segmentation, 
-2. MobileNetV2 源代码，
+3. MobileNetV2 源代码，
+5. Google Open Images Dataset, https://storage.googleapis.com/openimages/web/index.html

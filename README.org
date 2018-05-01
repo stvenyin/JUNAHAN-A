@@ -1,18 +1,18 @@
 # -*- mode: org; coding: utf-8; -*-
-#+TITLE:      Junahan Project A
-#+AUTHOR:     Junahan
-#+EMAIL:      junahan@outlook.com 
-#+DATE:       2018-03-30
-#+LANGUAGE:   CN
-#+OPTIONS:    H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
-#+OPTIONS:    TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
-#+LICENSE:    CC BY 4.0
+#+TITLE:              Junahan Project A
+#+AUTHOR:         Junahan
+#+EMAIL:             junahan@outlook.com 
+#+DATE:              2018-03-30
+#+LANGUAGE:    CN
+#+OPTIONS:        H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:        TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT:   view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+LICENSE:         CC BY 4.0
 
 * Overview 
 Hold my articles, TODO list, etc.
 
-* Blockchain相关文章
+* Blockchain 相关
 1. [[file:blockchain/bitcoin-wallet-security.org][比特币钱包安全]] - 介绍比特币钱包安全相关内容，特别是冷热钱包相关主题。(完工)
 2. [[file:blockchain/Bitcoin-Lightning-Network-Introduction.org][比特币闪电网络介绍]] - 针对比特币闪电网络的简单介绍。(完工)
 3. [[file:blockchain/Bitcoin-Lightning-Network-Paper-cn.org][比特币闪电网络论文]] - 翻译比特币闪电网络论文。(TODO...)
@@ -20,7 +20,9 @@ Hold my articles, TODO list, etc.
 
 /未完待续.../
 
-* TODO AI相关文章
+* AI 相关
+1. [[file:ai/AI_reading_list.org][AI 阅读列表]] - 根据我学习 AI 的经验总结的一份学习列表，包括书籍、课程、工具以及相关文章等。
+
 /未完待续.../
 
 * 2018年度推荐书单

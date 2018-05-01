@@ -1,0 +1,97 @@
+#+TITLE:              AI 学习阅读列表
+#+AUTHOR:         Junahan
+#+EMAIL:             junahan@outlook.com
+#+DATE:              2018-05-01
+#+LANGUAGE:    CN
+#+OPTIONS:        H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:        TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT:   view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+LICENSE:         CC BY 4.0
+
+* 简介
+本文根据作者学习 AI (特别是深度神经网络) 的一些经验，介绍 AI 学习的阅读列表，主要包括书籍、有关机器学习和深度学习的课程、论文、工具和框架、数据集等几个方面。有鉴于作者主要关注深度学习方面，有关阅读列表可能更加侧重于深度学习相关主题。
+
+* 书籍
+- Deep Learning, by Ian Goodfellow, Yoshua Bengio, Aaron Courville，该书由三位享誉全球的神经网络专家编写，涉猎主题广泛，是深度学习方面的教科书。电子版地址 - http://www.deeplearningbook.org。 该书中文版由人民邮电出版社于 2016 年出版发行。
+- [[http://neuralnetworksanddeeplearning.com/index.html][Nural Network and Deep Learning]], By [[http:http://michaelnielsen.org/][Michael Nielsen]]， 该文详细的介绍了有关神经网络和学习算法的知识，特别是有关反向传播算法以及卷积神经网络的细节。 
+- Machine Learning Yearning, by Andrew NG，值得期待的一本有关深度学习的书。
+- 机器学习，周志华著，有关机器学习的方方面面，机器学习方面的教科书。
+
+* 课程
+** 机器学习 (Andrew NG)
+*** 课程简介
+该课程是传统机器学习著名入门课程之一，由斯坦福大学制作，Andrew Ng 主讲。
+
+课程地址 - https://www.coursera.org/learn/machine-learning
+
+*** 评价
++ 最棒最出名的机器学习入门课程之一（如果不是唯一），很多机器学习初学者（包括我）都从该课程开始。
+
+** 谷歌机器学习速成课程（Google MLCC ）
+*** 课程简介
+Google 制作的节奏紧凑、内容实用的机器学习简介课程，涉及机器学习入门的相关主题。
+
+- 中文课程地址（国内可以顺利访问）- https://developers.google.cn/machine-learning/crash-course/
+
+*** 评价
++ 涉猎主题涵盖了机器学习入门必备的相关知识
++ 有很好的可视化示列和编程实践
++ 课程安排非常紧促且实用
+
+** 百度 PaddlePaddle 公开课程
+*** 课程简介
+该课程探讨人工智能前沿技术和开发框架PaddlePaddle，深入介绍AI技术方法的原理及应用。以深度学习为主。
+
+课程地址 - http://ai.baidu.com/paddlepaddle/openCourses
+
+
+*** 评价
++ 该课程相当全面，基本包罗了深度神经网络的各个层面，如卷积神经网络（CNN）、循环网络（RNN）、生成网络、强化学习等，应用上，介绍了计算机视觉，自然语言等各方面应用。
++ 该课程节奏比较舒缓，可能是主讲人的风格比较慢，感觉不够紧凑，你可以在课程中从容的去打一杯水再回来，也不会错过什么。
++ 该课程的所有应用示例介绍均以 PaddlePaddle 平台为基础。不过基本概念都是通用的。
+
+** Deep Learning Specialization
+*** 课程简介
+Master Deep Learning, and Break into AI.
+[[https://www.linkedin.com/in/tess-ferrandez-97845a5][Tess Ferrandez]] 完成了一份有关该课程的优美的信息图，详情，请参阅 - [[https://zhuanlan.zhihu.com/p/34346816][这是一份优美的信息图，吴恩达点赞的 deeplearning.ai 课程总结]]（机器之心重新编辑备注）。
+
+课程地址 - https://www.coursera.org/specializations/deep-learning
+
+*** TODO 评价
+
+** MIT 6.S094：深度学习和自动驾驶 
+*** 课程简介
+麻省理工学院（MIT）开源了 2018 年最新版「MIT 6.S094：深度学习和自动驾驶」。
+
+课程链接：http://www.mooc.ai/course/483 
+
+*** TODO 评价
+
+* TODO 论文和文章
+这里列出我看过的一些自己认为比较好的文章和论文，仅供大家参考。
+- [[https://zhuanlan.zhihu.com/p/34346816][这是一份优美的信息图，吴恩达点赞的 deeplearning.ai 课程总结]] - 机器之心整理转载，添加备注并提供原稿下载，由 Tess Ferrandez 完成的一份有关 deeplearning.ai 课程信息图。该信息图提纲携领、形象且优美，值得参阅。2018.04
+- 
+
+* TODO 框架和工具
+
+** TODO Caffe
+
+** TODO Tensorflow
+
+** TODO PaddlePaddle
+
+* TODO 数据集
+- MNIST - 
+- ImageNet - 
+- COCO Object Detection - 
+- VOC Image Segementation - 
+- Goopgle Open Images - 
+- Kaggle
+
+* 其他阅读列表
+- List of reading lists and survey papers - http://deeplearning.net/reading-list/ 
+
+#+BEGIN_QUOTE
+本作品采用[[http://creativecommons.org/licenses/by/4.0/][知识共享署名 4.0 国际许可协议]]进行许可。
+#+END_QUOTE
+

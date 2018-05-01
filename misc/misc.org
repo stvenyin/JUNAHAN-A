@@ -1,43 +1,47 @@
-#+TITLE: MISC
-#+AUTHOR: Junahan
-#+EMAIL: junahan@outlook.com
-#+DATE: 2018-04-03
+#+TITLE:              MISC
+#+AUTHOR:         Junahan
+#+EMAIL:             junahan@outlook.com
+#+DATE:              2018-04-29
+#+LANGUAGE:    CN
+#+OPTIONS:        H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:        TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT:   view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+LICENSE:         CC BY 4.0
 
-* 国内开源软件 Mirrors
-- 清华大学源地址：http://mirrors.tuna.tsinghua.edu.cn
-- 网易开源镜像站：http://mirrors.163.com
-- 阿里开源镜像站：https://opsx.alibaba.com/mirror
-- 浙江大学开源镜像站点：https://opsx.alibaba.com/mirror
+* 简介
 
+* Homebrew
 
-* HOMEBREW 国内源
+** Install Homebrew
 
-** 清华大学源
+** 配置 HOMEBREW 国内 MIRROR
 
-*** Homebrew Bottles
-- 临时替换
-#+BEGIN_SRC 
-export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+*** 替换现有上游
+#+BEGIN_SRC sh
+cd "$(brew --repo)"
+git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+brew update
 #+END_SRC
-- 长期替换
-#+BEGIN_SRC 
+
+*** 使用 homebrew-science 或者 homebrew-python
+#+BEGIN_SRC sh
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-science"
+git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-science.git
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-python"
+git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-python.git
+brew update
+#+END_SRC
+
+*** Homebrew-bottles 镜像
+#+BEGIN_SRC sh
 echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles' >> ~/.bash_profile
 source ~/.bash_profile
 #+END_SRC
 
-*** Homebrew Core 
-#+BEGIN_SRC
-cd "$(brew --repo)"
-git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+* Python
 
-cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
-git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
-
-brew update
-#+END_SRC
-
-* ELPA 国内源
-
-** 清华大学源
+* Maven
 
 
