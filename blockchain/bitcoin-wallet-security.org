@@ -1,8 +1,13 @@
-#+TITLE: 比特币钱包安全
-#+AUTHOR: Junahan
-#+EMAIL: junahan@outlook.com
-#+DATE: 2018-03-22
-#+LICENSE: CC BY 4.0 
+# -*- mode: org; coding: utf-8; -*-
+#+TITLE:              比特币钱包安全
+#+AUTHOR:         Junahan
+#+EMAIL:             junahan@outlook.com
+#+DATE:              2018-03-22
+#+LANGUAGE:    CN
+#+OPTIONS:        H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:        TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT:   view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+LICENSE:         CC BY 4.0
 
 * 比特币钱包安全概要
 有关比特币钱包安全，可以简单的分为两类，一类是做为用户的你不可控制的安全问题,一类是做为用户的你可以控制的安全问题。之所以这样看似废话的区分，提醒你集中你的注意力在你可以控制的安全问题上。

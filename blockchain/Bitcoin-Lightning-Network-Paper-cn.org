@@ -1,8 +1,13 @@
-#+TITLE: 比特币闪电网络:可扩展链下即时支付
-#+AUTHOR: Junahan
-#+EMAIL: junahan@outlook.com
-#+DATE: 2018-03-23
-#+LICENSE: CC BY 4.0 
+# -*- mode: org; coding: utf-8; -*-
+#+TITLE:             比特币闪电网络:可扩展链下即时支付
+#+AUTHOR:         Junahan
+#+EMAIL:             junahan@outlook.com
+#+DATE:              2018-03-23
+#+LANGUAGE:    CN
+#+OPTIONS:        H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:        TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT:   view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+LICENSE:         CC BY 4.0
 
 #+BEGIN_EXAMPLE 
 作者：Joseph Poon (joseph@lightning.network) , Thaddeus Dryja ( rx@awsomnet.org) 

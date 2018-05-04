@@ -23,6 +23,7 @@
 该课程是传统机器学习著名入门课程之一，由斯坦福大学制作，Andrew Ng 主讲。
 
 课程地址 - https://www.coursera.org/learn/machine-learning
+网易云课堂链接：http://study.163.com/course/courseMain.htm?courseId=1004570029
 
 *** 评价
 + 最棒最出名的机器学习入门课程之一（如果不是唯一），很多机器学习初学者（包括我）都从该课程开始。
@@ -61,9 +62,18 @@ Master Deep Learning, and Break into AI.
 
 ** MIT 6.S094：深度学习和自动驾驶 
 *** 课程简介
-麻省理工学院（MIT）开源了 2018 年最新版「MIT 6.S094：深度学习和自动驾驶」。
+麻省理工学院（MIT）2018 年最新版「MIT 6.S094：深度学习和自动驾驶」。
 
-课程链接：http://www.mooc.ai/course/483 
+课程链接：https://selfdrivingcars.mit.edu
+网易云课堂链接：http://study.163.com/course/courseMain.htm?courseId=1004938039
+
+*** TODO 评价
+
+** 斯坦福李飞飞 - 深度学习计算机视觉
+*** 课程简介
+斯坦福 CS231n 公开课 - 李飞飞主讲的有关计算机视觉的课程。
+
+网易云课堂链接：http://study.163.com/course/courseMain.htm?courseId=1003223001
 
 *** TODO 评价
 

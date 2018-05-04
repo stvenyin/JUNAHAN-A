@@ -1,13 +1,13 @@
 # -*- mode: org; coding: utf-8; -*-
-#+TITLE:       互联账本架构
-#+AUTHOR:      Junahan
-#+EMAIL:       junahan@outlook.com
-#+DATE:        2018-04-02
-#+LANGUAGE:    CN
-#+OPTIONS:     H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
-#+OPTIONS:     TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-#+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
-#+LICENSE:     CC BY 4.0
+#+TITLE:              互联账本架构
+#+AUTHOR:          Junahan
+#+EMAIL:              junahan@outlook.com
+#+DATE:               2018-04-02
+#+LANGUAGE:     CN
+#+OPTIONS:         H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:         TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT:    view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+LICENSE:          CC BY 4.0
 
 互联账本 (Interledger) 为跨越不同账本的多种资产提供安全支付支持。该架构设计由一个互联账本支付概念模型，安全支付机制，和一系列协议共同组成并实现。
 
