@@ -17,6 +17,7 @@ Hold my articles, TODO list, etc.
 2. [[file:blockchain/Bitcoin-Lightning-Network-Introduction.org][比特币闪电网络介绍]] - 针对比特币闪电网络的简单介绍。(完工)
 3. [[file:blockchain/Bitcoin-Lightning-Network-Paper-cn.org][比特币闪电网络论文]] - 翻译比特币闪电网络论文。(TODO...)
 4. [[file:blockchain/interledger_architecture.org][Interledger 架构]] - Interledger 架构。(TODO...)
+5. [[file:blockchain/solidity-dev-env.org][Solidity 开发环境和工具]] - 根据个人学习经验总结的有关 Solidity 开发环境和工具安装，配置和基本使用。(TODO...)
 
 /未完待续.../
 
@@ -44,4 +45,3 @@ Hold my articles, TODO list, etc.
 #+BEGIN_QUOTE
 本作品采用[[http://creativecommons.org/licenses/by/4.0/][知识共享署名 4.0 国际许可协议]]进行许可。
 #+END_QUOTE
-
