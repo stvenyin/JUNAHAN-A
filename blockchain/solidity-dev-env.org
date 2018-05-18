@@ -22,7 +22,8 @@
 * 开发环境和工具
 Solidity 是官方智能合约开发高级语言，Solidity 开发涉及到一些列工具套件和组合，这里推荐首先使用简单的组合以快速上手学习，并有利于了解 Solidity 开发最基本的知识。随着对 Solidity 的了解加深，可以尝试更加丰富的工具套件组合并使用开发框架来提高生产力。
 
-** 最简工具 <<remix-only>>
+** 最简工具
+#<<remix-only>>
 推荐使用 Remix，它是一个基于浏览器的 IDE，集成了 Solidity 编译器 ( =solcjs= )，基本编辑工具，以及 Solidity 的运行环境。官方提供了在线 [[https://remix.ethereum.org][Remix-ide]] ，无需安装即可通过浏览器使用。你也可以选择安装 Remix 至本地。以 MacOS 为例，可以在终端中运行 =npm install remixd remix-ide -g= 命令安装 Remix-ide。在终端中运行 =remix-ide= 命令即可启动 Remix-ide，如下所示，是我的电脑上运行 =remix-ide= 命令的终端输出。
 #+BEGIN_SRC shell
 $ remix-ide
@@ -80,7 +81,7 @@ solc --version
 #+ATTR_HTML: :width 60%
 [[file:images/remix-run-web3-provider.png]]
 
-你也可以配置 Geth 连接测试网络，详情请参阅 [[#network][Ethereum 网络]]。同样的，通过使用 Web3 Provider 选项连接 Geth 节点，即可在不同的网络进行代码测试和调试。
+你也可以配置 Geth 连接测试网络，详情请参阅 [[network][Ethereum 网络]]。同样的，通过使用 Web3 Provider 选项连接 Geth 节点，即可在不同的网络进行代码测试和调试。
 
 ** TODO 开发框架组合
 *** TODO Truffle 开发框架
@@ -100,17 +101,30 @@ yarn dist
 Puppeth 可用于帮助创建私有网络，详情请参阅[[#puppeth-usage][使用 Puppeth 搭建私有网络]]。
 
 * TODO APIs
-** TODO Web3
-** TODO RPC
+Enthereum 提供 RPC API 和 Web3 API。RPC API 是底层 API，Web3 API 由 JavaScript 语言写成，建立在 RPC API 基础之上，更加易于使用。在智能合约开发过程中，可以通过 Geth Console 使用 Web3 API 进行账户配置，测试等。
 
-* Ethereum 网络 <<network>>
+** Web3
+Web3 API 通过 JavaScript 语言提供，接口丰富且易于使用，整体上，Web3 API  可以划分为几个部分：
+- web3.eth - 
+- web3.eth.Contract - 
+- web3.eth.accounts - 
+- web3.eth.personal - 
+- web3.utils - 一些工具类功能
+- web3.ssh - 
+- web3.bzz - 
+** TODO RPC
+RPC API 是底层的 API 接口，支持通过 RPC 端口连接网络节点。
+
+* Ethereum 网络
+# <<network>>
 在开发智能合约或者 dApp 期间，你需要有更加真实的环境来部署和测试你的代码。Ethereum 社区提供相关的测试网络，你也可以使用相关工具搭建本地网络用于测试。
 - Testnet - Ropsten 测试网络，预定义可挖矿，采用 PoW (proof-of-work) 共识，启动挖矿会导致你的 CPU 风扇狂转。可以使用 =geth --testnet= 命令启动 Geth 节点并连接 Ropsten 测试网络。
 - Rinkeby - Rinkeby 测试网络，预定义可挖矿，采用 PoA (proof-of-authority) 共识算法。可以使用 =geth --rinkeby= 命令启动 Geth 节点并连接 Rinkeby 测试网络。
 - Solo - 临时开发网络，可挖矿，采用 PoA 共识算法，预先设定一个开发者账户，默认发生交易的时候挖矿，也可以定义挖矿间隔。可以使用 =geth --dev= 命令启动 Geth 节点并连接开发网络。
 - 私有网络 -  可以自己动手搭建私有网络以测试智能合约代码。Puppeth 工具可以帮助创建私有网络。
 
-** TODO 使用 Puppeth 搭建私有网络 <<puppeth-usage>>
+** TODO 使用 Puppeth 搭建私有网络
+#<<puppeth-usage>>
 
 * 参考文献
 1. Ethereum Homestead Document, http://www.ethdocs.org/en/latest/

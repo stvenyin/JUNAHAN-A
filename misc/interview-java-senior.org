@@ -45,7 +45,7 @@ Java Container 从最早期的 Array, Vector, HashTable 发展和完善到 List,
 - 互斥 (Mutex) 和 =synchronized= 关键字 - =synchronized= 关键字使用互斥，并自动加锁和解锁，可作用于方法级别和代码块级别
 - 条件变量 (Condition Variable) 和 wait/notify/notifyAll 配合使用
 - =volatile= 关键字 - 是另外一个有关线程安全的机制，该关键字可用于保护共享变量而无需加锁，Java 内存模型确保该变量的值在多线程环境下的一致性
-- ThreadLocal - 理解 Thread Local 的基本原理，很简单的方法是看一看 =ThreadLocal= 类的源代码和  JDK 文档 - 实质上它用 Map 数据结构实现
+- ThreadLocal - 理解 ThreadLocal 的基本原理，很简单的方法是看一看 =ThreadLocal= 类的源代码和  JDK 文档 - 实质上它用 Map 数据结构实现
 - 如何安全而优雅的结束线程 - 原则是不要尝试结束线程，只有线程自己知道该如何退出，如设置检查点，使用 =stop= 变量
 - Java 内存模型 - 由 JSR-133 规范定义，[[http://www.cs.umd.edu/~pugh/java/memoryModel/][JSR-133 The Java Memory Model]] 仍然维护 JSR-133  的相关信息（JSR-133 规范完成后，相关内容被整合进[[https://docs.oracle.com/javase/specs/jls/se8/html/index.html][ Java 语言规范]]) ，[[http://gee.cs.oswego.edu/dl/jmm/cookbook.html][The JSR-133 Cookbook for Compiler Writers]] (by Doug Lea) 也是一份值得阅读的文章 (你不一定要去写编译器) 
 
@@ -178,32 +178,32 @@ A. 先跳过吧，让我好好想一想，随后回答您 ......
 了解一些基本的数据结构，基础算法和算法分析。
 
 ** 数据结构
-- List - Array, Sequential List, Linked List, Stack, Queue
-- Binary Tree - Full Binary Tree, Complete Binary Tree, Balance Binary Heap - 
+- List - Array, Sequential List, Linked List, Stack, Queue.
+- Binary Tree - Full Binary Tree, Complete Binary Tree, Balance Binary Heap.
 - Tree - 树形数据结构被用于大型数据库索引。如 B/B+树等。
-- Graph - 
+- Graph - N/A.
 
 ** 算法分析
 *** 排序算法
-记住一个事实 - 排序算法的最差和平均时间代价为 T(n*long(n))。
+记住一个事实 - 排序算法的最差和平均时间代价为 O(n*log(n))。
 
 排序涉及到比较操作和交换操作，因此在分析的时候要考虑到两种操作的时间代价，有的排序算法要求的交换次数比其他排序算法多。
-- 三种时间代价均为 T(n^2) 的排序算法 - 插入排序、起泡排序和选择排序
-- Shell 排序的思想，利用插入排序最佳时间代价 T(n) 的特性，通过将序列递归分组并使用插入排序对分组分别排序的方法，将时间平均时间代价降低为 T(n^1.5)
-- 快速排序使用分治法的思想，通过选择一个轴值将带排序序列一分为二，并将小于轴值的结点移动至轴值左侧，大于轴值的结点移动至轴值的右侧，然后分别对分割后的两个子序列使用相同的快速排序方法，通过递归的方法，直至剩下一个元素为止。快速排序平均时间代价是 T(n*log(n))，但最坏情形下是 T(n^2)，只不过最坏情况通常出现机会比较小。
-- 归并排序仍然使用分治法的思想，将带排序序列分成两个等长的序列，并对分别对两个等长序列进行排序，然后合并两个序列，通过递归的方法，直至子序列长度为 1 为止。归并排序平均时间代价和最坏时间代价均为 T(n*log (n))。
-- 堆排序，使用堆数据结构对带排序序列进行排序，该排序算法的最优/最差/平均时间代价均为 T(n*log(n))。
+- 三种时间代价均为 O(n^2) 的排序算法 - 插入排序、起泡排序和选择排序，但插入排序在序列基本有序的情况下，最优代价是 O(n)，该特性经常用于优化其他算法。
+- Shell 排序的思想，利用插入排序最佳时间代价 O(n) 的特性，通过将序列递归分组并使用插入排序对分组分别排序的方法，将时间平均时间代价降低为 O(n^1.5)
+- 快速排序使用分治法的思想，通过选择一个轴值将待排序序列一分为二，并将小于轴值的结点移动至轴值左侧，大于轴值的结点移动至轴值的右侧，然后分别对分割后的两个子序列使用相同的快速排序算法，通过递归调用，直至剩下一个元素为止。快速排序平均时间代价是 O(n*log(n))，但最坏情形下是 O(n^2)，只不过最坏情况通常出现机会比较小。
+- 归并排序仍然使用分治法的思想，将带排序序列分成两个等长的序列，并对分别对两个等长序列进行排序，然后合并两个序列，通过递归的方法，直至子序列长度为 1 为止。归并排序平均时间代价和最坏时间代价均为 O(n*log (n))。
+- 堆排序，使用堆数据结构对待排序序列进行排序，该排序算法的最优/最差/平均时间代价均为 O(n*log(n))。
 
 *** 检索算法
-- 对一个没有排序的序列进行检索的平均和最差时间代价是 T(n)。
+- 对一个没有排序的序列进行检索的平均和最差时间代价是 O(n)。
 - 对一个有序序列进行检索可以使用二分法和字典检索方法。
 - 集合检索是一种特殊情况，用于确定一个值是不是某一个集合中的元素。通过引入适当的索引可以很好的解决该类问题，例如，用于检索文档的位向量方法，倒排索引，以及如 [[https://en.wikipedia.org/wiki/Bloom_filter][Bloom Filter]] 索引。
 - 散列方法，散列方法高速有效，但无法适用于范围搜索以及顺序访问的情形。
 
 *** 索引
-- 线性索引 - 简单的线性排序索引，问题在于无法高效的应对数据更新的情形，适用于静态数据
-- 散列索引 - 基于散列方法的索引，不适用于范围搜索以及需要顺序访问的情形
-- 树形索引 - 树形索引技术一般被应用于大型数据库索引，如 B/B+ 树形索引。B/B+ 树索引的检索、插入和删除记录的渐近时间代价是 T(long(n))。
+- 线性索引 - 简单的线性排序索引，问题在于无法高效的应对数据更新的情形，适用于静态数据。
+- 散列索引 - 基于散列方法的索引，不适用于范围搜索以及需要顺序访问的情形。
+- 树形索引 - 树形索引技术一般被应用于大型数据库索引，如 B/B+ 树形索引。B/B+ 树索引的检索、插入和删除记录的渐近时间代价是 O(log(n))。
 
 * 软件复用和设计模式
 ** 软件复用方式
@@ -215,16 +215,16 @@ A. 先跳过吧，让我好好想一想，随后回答您 ......
 - 库和框架 - 组织良好的一系列可复用软件组件。
 
 ** 面向对象
-- 继承 - isA 和 asA 的区别
-- 封装 - 隐藏数据和实现，控制变量和方法的可见范围
-- 多态 - 也称为后期绑定的基本概念和运行原理
+- 继承 - isA 和 asA 的区别。
+- 封装 - 隐藏数据和实现，控制变量和方法的可见范围。
+- 多态 - 也称为后期绑定的基本概念和运行原理。
 
 ** 设计模式
 Design patterns were originally grouped into the categories: creational patterns, structural patterns, and behavioral patterns, and described using the conceptions of delegation, aggregation, and consultation. Another classification has also introduced the notion of architectural design pattern that may be applied at the architecture level such as MVC pattern.
 
-- 重点了解几个常用的[[https://en.wikipedia.org/wiki/Software_design_pattern][设计模式]] , 如 Factory, Builder, Adapter, Visit 等
-- 对于[[https://en.wikipedia.org/wiki/Concurrency_pattern][并发模式]], 如 Lock, Thread Pool, Scheduler, Thread-local 等，看看 Java Concurrent 的设计，基本也就有了
-- 对于[[https://en.wikipedia.org/wiki/Architectural_pattern][架构风格和模式]] , 主要了解 [[https://en.wikipedia.org/wiki/Model-view-controller][MVC]] , DI, AOP 等
+- 重点了解几个常用的[[https://en.wikipedia.org/wiki/Software_design_pattern][设计模式]] , 如 Factory, Builder, Adapter, Visit 等。
+- 对于[[https://en.wikipedia.org/wiki/Concurrency_pattern][并发模式]], 如 Lock, Thread Pool, Scheduler, Thread-local 等，看看 Java Concurrent 的设计，基本也就有了。
+- 对于[[https://en.wikipedia.org/wiki/Architectural_pattern][架构风格和模式]] , 主要了解 [[https://en.wikipedia.org/wiki/Model-view-controller][MVC]] , DI, [[https://en.wikipedia.org/wiki/Aspect-oriented_programming][AOP]], [[http://microservices.io/patterns/microservices.html][MSA (Micro Service Architecture)]] 等。
 
 * 高并发系统架构
 1. Challenge - high concurrency, high availability, low latency
@@ -282,79 +282,85 @@ Design patterns were originally grouped into the categories: creational patterns
 - Selendroid - for Android
 
 * DevOps
-基本指导思想 - 开发运维一体化，尽最大可能自动化构建、测试、部署，追求高质量快速产品交付。
+基本指导思想 - 开发运维一体化，快速迭代、持续集成、持续交付。
 
-** Dev
-基本指导思想 - 采用敏捷开发模型，执行快速迭代过程，最大可能构建、测试自动化，追求高质量快速产品交付。
-
-1. 开发可维护代码 - 代码风格、注释、文档和重构
-2. Peer code review
-3. Automation Unit Test - coverage >= 80%
-4. Nightly build and automation unit and integration testing - Using Jenkins
-5. Automation integration testing - for web and mobile App
-
-** Ops
-基本指导思想 - 无缝对接开发，自动化部署，有效监控，快速事件响应。
-
-1. Automation deployment
- - Using script for first stage
- - Planning move to Chef + Kubernetes + Docker
-2. System health monitoring and alarm
+1. 采用敏捷开发过程 - 快速迭代 - Feature Planning > Story > Design > Implement > Testing > Release
+2. 持续集成 (Continues Integration) - Nightly build and automation integration testing (Jenkins)
+3. 持续交付 (Continues Deployment) - 
+4. System health monitoring and alarm
  - Database
  - Cache server
  - RPC
  - Web
  - Machine level - CPU, Memory, Storage usage
-3. 运维事件快速响应
- - 
+5. 运维事件快速响应
+ - Perfect Process
+
+** MISC
+- 开发可维护代码 - 代码风格、注释、文档和重构
+- Automation Unit Test - coverage >= 80%
+- Automation integration testing - for web and mobile App
+- Automation building and unit testing
+- Peer code review
 
 ** Tool Chain
 - Code - code development and review, source code management tools, code merging - Git/Gitlab
 - Build - continuous integration tools, build status - Jenkins/Maven/Gradle/Make
 - Test - continuous testing tools that provide feedback on business risks - Unit/Selenium
 - Package - artifact repository, application pre-deployment staging
-- Release - change management, release approvals, release automation - 
+- Release - change management, release approvals, release automation
 - Configure - infrastructure configuration and management, Infrastructure as Code tools - Puppet/Chef/Docker/Kubernetes
 - Monitor - applications performance monitoring, end–user experience
 
 * 优化
-优化是一个很宽泛的概念，在这里，我们特指团队或者组织，为特定产品或者服务，以特定目标为导向而采取措施的过程。例如，用户体验优化、业务功能优化、系统性能优化等。优化通常伴随着问题的发现和以目标为导向。
+优化是一个很宽泛的概念，在这里，我们特指团队或者组织，为特定产品或者服务，以特定目标为导向而采取措施的过程。例如，用户体验优化、业务功能优化、系统性能优化等。优化通常依赖数据，伴随着问题的发现和以目标为导向。
 
-** 优化的指导性框架 - GMMF
+** 挑战
+- Factors without data - fashion, competitor data, etc.
+- Data distribution is not stable - change with time, for example - fashion.
+- Confusing the factors - Measure (what we take) itself change the result and the data what we collection including the confusing data. That lead to a risk - the result  deviate from under trues.
+- Data Collection - 无论采用何种方法，数据是推动优化的前提，如何收集高质量的数据某种意义上是优化的关键。
+
+** 优化框架
 1. Goal - 
- - KPI - Product Recommendation Performance, etc.
- - Find interesting - 
-2. Matrix -
+ - 目标驱动 - 如提升商品推荐性能
+ - 问题驱动 - 如发现或者解决问题
+2. Matrix - 具体的可以度量的指标
+ - Conversion Rate of Product Recommendation
  - Page Conversion Rate
  - Page Residence Time
  - Order / Payment Rate
  - Activity User - by Day/Month
- - Revenue
-3. Methodology - 
- - Data Collection - Access log, APP log, System log
- - Data Analysis - Statistic, ML
- - Compare matrix with different situation
- - Conclusion, Estimation
- - Measure - Page Layout, A/B testing
-4. Feedback and Result - 
- - Data - logs, database data, etc.
- - Statistic Diagram - Heat Map, Distribution Diagram, ECHARTS
- - ML Mode - Tensorflow, Caffe
-5. Challenge
- - Factors without data - fashion, competitor data, etc.
- - Data distribution is not stable - change with time, for example - fashion
- - Confusing the factors - Measure (what we take) itself change the result and the data what we collection including the confusing data. That lead to a risk - the result  deviate from under trues.
+3. 改进措施和方案
+ - 改变 UI layout
+ - 引进新的产品推荐算法
+4. 评价和反馈
+ - Do A/B testing - A/B 测试有助于在相同的条件下（相同时间段，用户同分布）评价方案的影响。也需要注意 A/B  测试要求尽可能随机挑选用户以满足用户同分布的对比要求，统计样本规模也需要保持适中
+ - 数据收集和分析 - 采用统计学方法或者 ML 方法等
+ - 结论和反馈 - 针对改进措施和方案效果的评价结论和反馈，作为下一轮改进的输入
 
-** 用户体验优化
+** 方法论
+- 直觉 - 依赖于天才的直觉
+- 统计学方法
+ - Data Collection - Access log, APP log, System log
+ - Data Analysis - Statistic Diagram - Heat Map, Distribution Diagram, ECHARTS
+- Machine Learning - 时髦的方法，帮助我们从一大堆数据中寻找关联和模式
+ - Data Collection - 和统计学方法一样，ML 甚至需要更多数据
+ - ML Model - 建立 ML 模型
+ - Training - 训练网络
+ - 推理预测 - 发现问题
+
+** 优化内容示例
+*** 用户体验优化
 - UI 布局
 - 提升商品推荐系统的准确度和转化率
 - 广告对用户体验的影响
 
-** 业务过程优化
+*** 业务过程优化
 - 优化业务过程资源配备以快速响应用户需求
 - 优化运维监控事件处理以快速发现和响应告警事件
 
-** 系统性能优化
+*** 系统性能优化
 - 系统可用性 - 以可用性为目标，优化系统的可用性配置
 - 系统并发吞吐量 - 以并发吞吐量为目标，优化系统高并发条件下的性能
 - 快速响应 - 以快速响应用户请求为目标，优化系统的性能
@@ -363,7 +369,7 @@ Design patterns were originally grouped into the categories: creational patterns
 
 *** 什么是 End-to-end Tracking System
 End-to-end Tracking System 是指一套能够穿透业务系统前后端的业务日志及分析系统。其特点是能够有效的穿透整个业务系统，从最前端的业务开始一直到最后端的数据逻辑层。该系统能够带来的好处包括：
-1. 能够有效的关联整个业务，为数据分析带来便利；
+1. 能够有效的关联整个业务，有助于收集到高质量数据并为数据分析带来便利；
 2. 有助于识别和发现系统问题；
 3. 有助于识别和发现安全攻击；
 
@@ -388,9 +394,10 @@ End-to-end Tracking System 是指一套能够穿透业务系统前后端的业�
 7. Java 多线程编程, [美] Bil Lewis, Daniel J. Berg 著，关欣、史宗海等译，电子工业出版社出版，2000.
 8. Amdahl's law, https://en.wikipedia.org/wiki/Amdahl%27s_law
 9. 数据结构与算法分析（Java 版本）, [美] Clifford A. Shaffer 著，张铭、刘晓丹译，电子工业出版社出版，2001.
-13. Software Design Pattern, https://en.wikipedia.org/wiki/Software_design_pattern.
+13. Design Patterns, https://www.oodesign.com.
+14. Software Design Pattern, https://en.wikipedia.org/wiki/Software_design_pattern.
 15. Architectural Pattern, https://en.wikipedia.org/wiki/Architectural_pattern.
-17. Design Patterns, https://www.oodesign.com.
+17. MSA, http://microservices.io/patterns/microservices.html.
 19. OWASP Top 10, https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project.
 21. OWASP Mobile Top 10, https://www.owasp.org/index.php/Mobile_Top_10_2016-Top_10.
 23. OWASP China Projects, http://www.owasp.org.cn/owasp-project.
