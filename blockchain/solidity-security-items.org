@@ -11,14 +11,173 @@
 
 * 摘要
 
-* TODO 安全最佳实践
+* TODO 已知安全陷阱和最佳实践
+** 重入 (re-entrancy) 和 fallback 回调
+
+*** TODO 代码示例
+
+*** 安全编码建议: 
+- 遵循 check-set 安全编码模式；
+- 减扣余额先于转账操作；
+
+** 不安全的转账方式
+
+*** TODO 代码示例
+
+*** 安全编码建议
+避免使用 =call.value= , 谨慎使用 =send=, 使用 =transfer= 作为替代。
+
+** 不恰当使用 msg.original
+solidity 提供了两种标准的方式来获取合约调用方的地址, =tx.origin= 和 =msg.sender= ，但是这两者的含义是不同的，其中 =msg.sender= 是指直接调用当前合约的调用方地址, =tx.origin= 是指起始调用方地址。不恰当的使用 =tx.origin= 会让攻击者有机会通过 =fallback= 回调接口获取不恰当的权限。
+
+*** TODO 代码示例
+
+*** 安全编码建议
+避免使用 =tx.original=, 使用 =msg.sender= 替代。
+
+** 除法取整陷阱
+
+*** TODO 代码示例
+
+*** 安全编码建议
+
+** 值溢出陷阱
+
+*** TODO 代码示例
+
+*** 安全编码建议
+- 使用 =safeMath= 库
+- 测试案例覆盖此类情形
+
+** 依赖当前区块时间戳（块高度）
+
+*** TODO 代码示例
+
+*** 安全编码建议
+避免依赖当前区块时间戳，特别是随机数生成。
+
+** TODO 使用过时关键字
+
+过时关键字列表：
+- throw - , 使用 =revert()= 替代；
+- suicide - , 使用 
+
+* TODO Common Pattern
+- 取款模式 (Withdrawal from Contracts)
+
+- 访问限制 (Restricting Access)
+
+- 状态机模式 (State Machine)
 
 * TODO 案例
+** BEC 代币数值溢出攻击
+BEC 代币合约地址是 [[https://etherscan.io/address/0xc5d105e63711398af9bbff092d4b6769c82f793d][0xc5d105e63711398af9bbff092d4b6769c82f793d]] ，BEC 代币产生数值溢出的代码段如下：
+#+BEGIN_SRC solidity
+  function batchTransfer(address[] _receivers, uint256 _value) public whenNotPaused returns (bool) {
+    uint cnt = _receivers.length;
+    uint256 amount = uint256(cnt) * _value;  //@1
+    require(cnt > 0 && cnt <= 20);
+    require(_value > 0 && balances[msg.sender] >= amount);
+
+    balances[msg.sender] = balances[msg.sender].sub(amount);
+    for (uint i = 0;  i < cnt; i++) {
+      balances[_redeivers[i]] = balances[_receivers[i]].add(_value);
+      Transfer(msg.sender, _receivers[i], _value);
+    }
+    return true;
+  }
+#+END_SRC
+
+以上代码的问题在于：@1 处的代码可能导致数值溢出从而使得非法的 =_value= 值能够通过检测条件而凭空产生大量 BEC 代币。
+
+攻击交易 ID - [[https://etherscan.io/tx/0xad89ff16fd1ebe3a0a7cf4ed282302c06626c1af33221ebe0d3a470aba4a660f][0xad89ff16fd1ebe3a0a7cf4ed282302c06626c1af33221ebe0d3a470aba4a660f]]
+
+攻击交易调用 =batchTransfer= 传入的参数：
+#+BEGIN_EXAMPLE
+_receivers 的值是：
+0x0e823ffe018727585eaf5bc769fa80472f76c3d7
+0xb4d30cac5124b46c2df0cf3e3e1be05f42119033
+
+_value 的值是 (Hex):
+8000000000000000000000000000000000000000000000000000000000000000
+#+END_EXAMPLE
+
+以上攻击交易导致代码 =amount = uint256(cnt) * _value;= 执行的结果是 =amount= 的值为 0 (由于 2 * _value 的值超过 uint256 的上限 2**256 - 1)。这导致此后针对 =amount= 值的校验全部通过，换句话说，攻击者向两个账户各自转了 =5.7896044618658097711785492504343953926634992332820282019728792003956564819968e+76= 个 BEC 代币！
+
+解决方案 - 使用 [[https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/math/SafeMath.sol][SafeMath 库]]进行数据计算。
+
+** The DAO hack
+Solidity 中 call 函数被调用时, 如果带有 value 参数, 则会转发所有他所收到的 gas。
+
+在一下代码片段中, call 函数在 sender 的余额实际减少前被调用。这里有一个漏洞曾导致 [[https://etherscan.io/address/0xbb9bc244d798123fde783fcc1c72d3bb8c189413#code][TheDAO]] 攻击。
+#+BEGIN_SRC solidity
+  function withdraw(uint _amount) public {
+    if(balances[msg.sender] >= _amount) {
+      if(msg.sender.call.value(_amount)()) {
+        _amount;
+      }
+      balances[msg.sender] -= amount;
+    }
+  }
+#+END_SRC
+
+DAO 攻击相关信息:
+- TheDAO - [[https://etherscan.io/address/0xbb9bc244d798123fde783fcc1c72d3bb8c189413#code][0xbb9bc244d798123fde783fcc1c72d3bb8c189413]] - TheDAO 合约地址
+- TheDarkDAO - [[https://etherscan.io/address/0x304a554a310c7e546dfe434669c62820b7d83490][0x304a554a310C7e546dfe434669C62820b7D83490]] - 黑客子合约地址
+- 发起攻击的地址: 0xf35e2cc8e6523d683ed44870f5b7cc785051a77d
+- proxy: 0xf835a0247b0063c04ef22006ebe57c5f11977cc4
+- TheDAO rewardAccount: 0xd2e16a20dd7b1ae54fb0312209784478d069c7b
+- proxy2: 0x56bcc40e5e76c658fad956ee32e4250bf97468a1
+- 隐藏地址: 0xc0ee9db1a9e07ca63e4ff0d5fb6f86bf68d47b89
+- 转移回token交易的发起地址: 0x969837498944ae1dc0dcac2d0c65634c88729b2d
+
+有关 TheDAO 攻击的更多信息，请参阅
+- 从技术角度剖析针对THE DAO的攻击手法, https://ethfans.org/posts/114.
+- Deconstructing theDAO Attack: A Brief Code Tour, https://vessenes.com/deconstructing-thedao-attack-a-brief-code-tour/.
+- More Ethereum Attacks: Race-To-Empty is the Real Deal, https://vessenes.com/more-ethereum-attacks-race-to-empty-is-the-real-deal/.
+
+** Delegatecall 攻击
+#+BEGIN_SRC solidity
+  pragma solidity 0.4.18;
+
+  contract Delegate {
+      address public owner;
+      function Delegate(address _owner) public {
+          owner = _owner;
+      }
+      function pwn() public {
+          owner = msg.sender;
+      }
+  }
+
+  contract Deletagion {
+      address public owner;
+      Delegate delegate;
+      function Delegation(address _delegateAddreses) public {
+          delegate = Delegate(_delegateAddreses);
+          owner = msg.sender;
+      }
+
+      // an attacker can call Delegate.pwn() in the context of Delegation, this means that pwn() will modify the state of **Delegation** and not Delegate, the result is that the attacker takes unauthorized ownership of the contract.
+      function () public {
+          if(delegate.delegatecall(msg.data)) {
+              this;
+          }
+      }
+  }
+#+END_SRC
 
 * 参考文献
-1. Solidiky Document, https://solidity.readthedocs.io
+1. Solidiky Document, https://solidity.readthedocs.io.
+2. BEC 代币合约地址, https://etherscan.io/address/0xc5d105e63711398af9bbff092d4b6769c82f793d.
+3. BEC 代币攻击交易, https://etherscan.io/tx/0xad89ff16fd1ebe3a0a7cf4ed282302c06626c1af33221ebe0d3a470aba4a660f.
+4. Solidity SaveMath Lib, https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/math/SafeMath.sol.
+5. 从技术角度剖析针对THE DAO的攻击手法, https://ethfans.org/posts/114.
+6. Deconstructing theDAO Attack: A Brief Code Tour, https://vessenes.com/deconstructing-thedao-attack-a-brief-code-tour/.
+7. More Ethereum Attacks: Race-To-Empty is the Real Deal, https://vessenes.com/more-ethereum-attacks-race-to-empty-is-the-real-deal/.
+8. ERC20 Token智能合约六类常见漏洞, https://www.toutiao.com/a6558580418633794052.
+
 
 #+BEGIN_QUOTE
 本作品采用[[http://creativecommons.org/licenses/by/4.0/][知识共享署名 4.0 国际许可协议]]进行许可。
 #+END_QUOTE
-

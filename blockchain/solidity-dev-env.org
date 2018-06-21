@@ -17,7 +17,7 @@
 /提醒：Solidity 语言甚至是 Ethereum 都在快速的发展之中，相应的工具和组合也在不断完善和发展之中，请注意本文所述所使用的各工具版本，这里列出一些相关版本号供参考：/
 - Go-ethereum 1.8.7-stable (可以通过 =geth version= 查看版本号)
 - Solidity 0.4.23+commit.124ca40d.Darwin.appleclang (可以通过 =solc --version= 查看版本号)
-- Remix-ide 0.6.2 (可以通过 =npm -g list remix-ide= 查看版号，或者在 IDE 里面查看版本号 )
+- Remix-ide 0.6.2 (可以通过 =npm -g list remix-ide= 查看版号 )
 
 * 开发环境和工具
 Solidity 是官方智能合约开发高级语言，Solidity 开发涉及到一些列工具套件和组合，这里推荐首先使用简单的组合以快速上手学习，并有利于了解 Solidity 开发最基本的知识。随着对 Solidity 的了解加深，可以尝试更加丰富的工具套件组合并使用开发框架来提高生产力。
@@ -81,10 +81,29 @@ solc --version
 #+ATTR_HTML: :width 60%
 [[file:images/remix-run-web3-provider.png]]
 
-你也可以配置 Geth 连接测试网络，详情请参阅 [[network][Ethereum 网络]]。同样的，通过使用 Web3 Provider 选项连接 Geth 节点，即可在不同的网络进行代码测试和调试。
+你也可以配置 Geth 连接测试网络，详情请参阅 [[#network][Ethereum 网络]]。同样的，通过使用 Web3 Provider 选项连接 Geth 节点，即可在不同的网络进行代码测试和调试。
 
 ** TODO 开发框架组合
-*** TODO Truffle 开发框架
+建议使用 [[http://truffleframework.com/docs/][Truffle 框架]]，Truffle 框架号称是以太坊瑞士军刀。该框架是一个开发环境、测试框架，目标是使以太坊开发者的日常工作更加容易。该框架包括：
+- 内置智能合约编译、链接、部署和二进制文件管理
+- 快速开发自动化合约测试
+- 脚本化，可扩展部署和迁移框架
+- 网络管理 - 允许部署至任意公共和私有网络
+- 使用 EthPM 和 NPM 进行包管理，使用 [[https://github.com/ethereum/EIPs/issues/190][ERC190]] 标准
+- 可交互控制台 - 可直接和合约进行交互
+- 可配置构建管道 - 支持高度集成
+- 支持外部脚本 - 可在 Truffle 环境下执行外部脚本
+
+*** 安装
+在终端运行 =npm install -g truffle= 可安装 Truffle 框架及其依赖包。运行 =truffle version= 验证安装。
+#+BEGIN_SRC sh
+$ truffle version
+Truffle v4.1.8 (core: 4.1.8)
+Solidity v0.4.23 (solc-js)
+#+END_SRC
+
+*** TODO 快速启用
+
 
 ** 其他工具
 *** Remix App
@@ -98,22 +117,10 @@ yarn dist
 安装包位于 =remix-app/dist= 目录。
 
 *** Puppeth
-Puppeth 可用于帮助创建私有网络，详情请参阅[[#puppeth-usage][使用 Puppeth 搭建私有网络]]。
+Puppeth 可用于帮助创建私有网络，详情请参阅[[*puppeth-usage][使用 Puppeth 搭建私有网络]]。
 
-* TODO APIs
-Enthereum 提供 RPC API 和 Web3 API。RPC API 是底层 API，Web3 API 由 JavaScript 语言写成，建立在 RPC API 基础之上，更加易于使用。在智能合约开发过程中，可以通过 Geth Console 使用 Web3 API 进行账户配置，测试等。
-
-** Web3
-Web3 API 通过 JavaScript 语言提供，接口丰富且易于使用，整体上，Web3 API  可以划分为几个部分：
-- web3.eth - 
-- web3.eth.Contract - 
-- web3.eth.accounts - 
-- web3.eth.personal - 
-- web3.utils - 一些工具类功能
-- web3.ssh - 
-- web3.bzz - 
-** TODO RPC
-RPC API 是底层的 API 接口，支持通过 RPC 端口连接网络节点。
+* APIs
+Enthereum 提供 [[https://github.com/ethereum/wiki/wiki/JSON-RPC#json-rpc-methods][RPC API]] 和 [[https://web3js.readthedocs.io/en/1.0/][Web3 API]]。RPC API 是底层 API，Web3 API 由 JavaScript 语言写成，建立在 RPC API 基础之上，更加易于使用。在智能合约开发过程中，可以通过 Geth Console 使用 Web3 API 进行账户配置，测试等。
 
 * Ethereum 网络
 # <<network>>
@@ -124,11 +131,13 @@ RPC API 是底层的 API 接口，支持通过 RPC 端口连接网络节点。
 - 私有网络 -  可以自己动手搭建私有网络以测试智能合约代码。Puppeth 工具可以帮助创建私有网络。
 
 ** TODO 使用 Puppeth 搭建私有网络
-#<<puppeth-usage>>
+# <<puppeth-usage>>
 
 * 参考文献
-1. Ethereum Homestead Document, http://www.ethdocs.org/en/latest/
-3. Web3 Document, http://web3js.readthedocs.io/en/1.0/web3.html
+1. Ethereum Homestead Document, http://www.ethdocs.org/en/latest/.
+2. RPC APIs, https://github.com/ethereum/wiki/wiki/JSON-RPC#json-rpc-methods.
+3. Web3 Document, http://web3js.readthedocs.io/en/1.0/web3.html.
+4. JavaScript API wiki, https://github.com/ethereum/wiki/wiki/JavaScript-API.
 5. Solidiky Document, https://solidity.readthedocs.io
 7. Truffle, http://truffleframework.com
 
