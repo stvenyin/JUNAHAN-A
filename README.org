@@ -12,6 +12,9 @@
 * Overview 
 Hold my articles, TODO list, etc.
 
+* AI 相关
+1. [[file:ai/AI_reading_list.org][AI 阅读列表]] - 根据我学习 AI 的经验总结的一份学习列表，包括书籍、课程、工具以及相关文章等。
+
 * Blockchain 相关
 1. [[file:blockchain/bitcoin-wallet-security.org][比特币钱包安全]] - 介绍比特币钱包安全相关内容，特别是冷热钱包相关主题。(完工)
 2. [[file:blockchain/Bitcoin-Lightning-Network-Introduction.org][比特币闪电网络介绍]] - 针对比特币闪电网络的简单介绍。(完工)
@@ -19,12 +22,18 @@ Hold my articles, TODO list, etc.
 4. [[file:blockchain/interledger_architecture.org][Interledger 架构]] - Interledger 架构。(TODO...)
 5. [[file:blockchain/solidity-dev-env.org][Solidity 开发环境和工具]] - 根据个人学习经验总结的有关 Solidity 开发环境和工具安装，配置和基本使用。(TODO...)
 
-/未完待续.../
+* 项目相关
+** 如何发布项目包至 Maven 中心仓库
+以我发布的开源项目[[https://github.com/junahan/struts2-protobuf-plugin/tree/master/plugin-demo][ Struts2 Protobuf Plugin]] 为例，简明扼要的按步骤说明[[file:misc/release-package-to-maven-centre-repository-how-to.org][如何发布项目包至 Maven 中心仓库]]。
 
-* AI 相关
-1. [[file:ai/AI_reading_list.org][AI 阅读列表]] - 根据我学习 AI 的经验总结的一份学习列表，包括书籍、课程、工具以及相关文章等。
+** Strut2 Protobuf Plugin
+[[https://github.com/junahan/struts2-protobuf-plugin/tree/master/plugin-demo][Strut2 Protobuf Plugin]] 是我发布的开源项目，该项目主要特性：
+- 提供工具类库，支持将 protobuf 消息域的值转换为类型兼容的 Java 对象属性值，反之依然；
+- 将 protobuf 消息域的值自动转换为对应的 Action 对象属性值；
+- 支持将 protobuf 消息作为 Struts2 Result - 包括成功的 Response，验证错误（包括字段/动作错误）或者异常，均可以通过 protobuf 消息结果返回。
 
-/未完待续.../
+欢迎使用或者为该项目贡献代码、帮助测试和提出任何问题。
+该项目 Github 地址是：https://github.com/junahan/struts2-protobuf-plugin
 
 * 2018年度推荐书单
 1. 原则 （PRINCIPLES）（生活和工作）- 瑞•达利欧（Ray Dalio）著。理顺思路，解决困惑，一本值得多次重读的好书。 
@@ -40,7 +49,6 @@ Hold my articles, TODO list, etc.
 11. 南京大屠杀（The Rape of Nangking）- 张纯如著。历史厚重，不能拉仇恨，更不能忘却。1937年12月13日，南京大屠杀发生，77年后，2014年2月23日，中国十二届全国人大常委会第七次会议通过决议，将每年12月13日设立为南京大屠杀死难者国家公祭日。
 12. “错误”的行为（MISBEHAVING）- 理查德•泰勒（Richard H. Thaler）著。行为经济学关于世界的思考，从个人到商业和社会。值得重读。
 
-* MISC
 
 #+BEGIN_QUOTE
 本作品采用[[http://creativecommons.org/licenses/by/4.0/][知识共享署名 4.0 国际许可协议]]进行许可。

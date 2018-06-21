@@ -1,0 +1,398 @@
+# -*- mode: org; coding: utf-8; -*-
+#+TITLE:              如何发布项目包至 Maven 中心仓库
+#+AUTHOR:          Junahan
+#+EMAIL:              junahan@outlook.com 
+#+DATE:               2018-06-10
+#+LANGUAGE:    CN
+#+OPTIONS:         H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:         TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT:   view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+LICENSE:          CC BY 4.0
+
+* 摘要
+本文简单说明如何部署 (Deploy) Maven 项目至 [[https://oss.sonatype.org][OSSRH]] 仓库并发布 (Release) 至 Maven 中心 （Maven Centre）仓库。
+
+* 基本要求
+要发布项目到 Maven 中心仓库，需要遵循一些[[https://central.sonatype.org/pages/requirements.html][基本要求]] ：
+- 随 Jar 包一起提供 Javadoc 和 Sources 包。
+- 使用 [[https://gnupg.org.][GPG/PGP]] 签名发布包。
+- 提供必要的项目数据 - 在 POM 中包含必要的信息
+  - 正确的基本信息包括 =groupId= , =artifactId=, =version= 等
+  - 项目名称、描述和 URL
+  - License 信息
+  - 开发者信息
+  - SCM 信息
+
+* 准备 GPG 签名环境
+** 安装 GPG
+这里以 Mac 为例，安装 GPG 软件包
+#+BEGIN_SRC sh
+$ brew install gpg
+...
+$ gpg --version
+gpg (GnuPG) 2.2.7
+libgcrypt 1.8.2
+Copyright (C) 2018 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Home: /Users/junahan/.gnupg
+支持的算法：
+公钥：RSA, ELG, DSA, ECDH, ECDSA, EDDSA
+对称加密：IDEA, 3DES, CAST5, BLOWFISH, AES, AES192, AES256,
+     TWOFISH, CAMELLIA128, CAMELLIA192, CAMELLIA256
+散列：SHA1, RIPEMD160, SHA256, SHA384, SHA512, SHA224
+压缩：不压缩, ZIP, ZLIB, BZIP2
+#+END_SRC
+
+** 创建秘钥对
+秘钥对包含一个私钥和一个公钥，私钥用于对发布包进行签名。相应的公钥可以通过 Key Server 分享给用户，用户可以使用该公钥对你的发布包进行验证。使用如下命令产生秘钥对：
+#+BEGIN_SRC sh
+gpg --gen-key
+#+END_SRC
+在创建秘钥对过程中，系统会询问加密算法类型和秘钥长度，建议使用 RSA 算法并使用 2048 bit 秘钥长度。另外需要输入的信息包括名字、Email地址等，另外需要输入安全密码。私钥和安全密码在签名你的发布包的时候需要使用。
+
+** 列出秘钥对
+#+BEGIN_SRC sh
+$ gpg --list-keys
+/Users/junahan/.gnupg/pubring.kbx
+---------------------------------
+pub   rsa2048 2018-06-15 [SC] [有效至：2020-06-14]
+      388AB68B99E8E6069E9BB3FEFE50DC1E94282315
+uid           [ 绝对 ] Junahan <junahan@outlook.com>
+sub   rsa2048 2018-06-15 [E] [有效至：2020-06-14]
+#+END_SRC
+- 其中 pub rsa2048... 一节就是你的公钥信息，388AB68B99E8E6069E9BB3FEFE50DC1E94282315 就是公钥 ID。
+
+** 分发你的公钥
+通过分发你的公钥到公钥服务器，用户可以通过公钥服务器下载你的公钥以验证你的发布包。
+#+BEGIN_SRC sh
+gpg --keyserver hkps://hkps.pool.sks-keyservers.net --send-keys 388AB68B99E8E6069E9BB3FEFE50DC1E94282315
+#+END_SRC
+
+** 使用 GPG Keychain
+GPG Keychain 是 [[https://gpgtools.org][GPG Suite]] 的一部分，它提供一个 GUI 界面，方便用户管理 GPG 秘钥。
+以 Mac 为例，运行如下命令安装 GPG Suite：
+#+BEGIN_SRC sh
+brew cask install gpg-suite
+#+END_SRC
+
+* 登录 OSSRH 并创建项目信息
+访问 [[https://issues.sonatype.org][OSSRH]] 注册账户并登录，该账号会在随后发布项目包时用作认证需要。使用 OSSRH 发布项目包之前，需要在 OSSRH 创建一个有关该项目的 Issue Ticket 并提供相关项目相关信息，包括项目名称、GroupId、项目代码地址等基本信息。创建 Issue Ticket 的界面如下图所示：
+#+CAPTION: 创建项目 Ticket
+#+ATTR_HTML:  width: 60%
+[[file:images/create-new-project-issue.png]]
+
+- 有关新项目的信息需要经过人工审核以确认提供的信息有效，特别是项目 GroupId 信息，审核在 2 个工作日内完成；
+- 由于 GroupId 通常包含域名信息，如果你使用自己的域名，需要提供你是该域名拥有者的一些证据；
+- 如果你在 Github 上托管代码，建议使用 com.github.${你的 GitHub 账户名} 作为 GroupId；
+
+* 准备项目 POM
+这里以项目 [[https://github.com/junahan/struts2-protobuf-plugin/tree/master/plugin-demo][struts2-protobuf-plugin]] 为例。
+
+** 配置项目基本信息
+
+#+BEGIN_SRC xml
+  <groupId>com.github.junahan</groupId>
+  <artifactId>struts2-protobuf-plugin-parent</artifactId>
+  <version>1.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>${project.artifactId}</name>
+  <description>Struts2 protobuf plugin parent</description>
+  <url>https://github.com/junahan/struts2-protobuf-plugin</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Junahan</name>
+      <email>junahan@outlook.com</email>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>https://github.com/junahan/struts2-protobuf-plugin</url>
+    <connection>scm:git:https://github.com/junahan/struts2-protobuf-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:junahan/struts2-protobuf-plugin.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+#+END_SRC
+
+** 配置 Distribution Management
+添加 Distribution Management 定义如下以指定 =ossrh= 仓库，这是我们部署发布包的中转仓库，并最终会发布至 Maven 中心仓库。
+
+#+BEGIN_SRC xml
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+#+END_SRC
+
+** 配置 Maven Plugins
+发布过程需要使用到三个 Maven 插件:
+- Maven Deploy 插件 - 用于执行 Snapshot 部署；
+- Nexus Staging 插件 - 用于执行 Release 部署及发布，推荐使用；
+- Maven Release 插件 - 用于执行 Release 部署及发布，支持发布标准流程，集成 SCM 以自动化执行版本号处理；
+
+#+BEGIN_SRC xml
+  <build>
+      <plugins>
+        <!-- ... -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${maven.deploy.version}</version>
+          <configuration>
+            <skip>${skip.maven.deploy}</skip>
+          </configuration>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.sonatype.plugins</groupId>
+          <artifactId>nexus-staging-maven-plugin</artifactId>
+          <version>${nexus.staging.version}</version>
+          <extensions>true</extensions>
+          <configuration>
+            <serverId>ossrh</serverId>
+            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+          </configuration>
+        </plugin>
+          
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>${maven.release.version}</version>
+          <configuration>
+            <autoVersionSubmodules>true</autoVersionSubmodules>
+            <useReleaseProfile>false</useReleaseProfile>
+            <releaseProfiles>release</releaseProfiles>
+            <goals>deploy nexus-staging:release</goals>
+          </configuration>
+        </plugin>
+      </plugins>
+  </build>
+#+END_SRC
+
+** 配置发布 Profile
+发布 Profile 执行 Maven Source, Maven Javddoc, 和 Maven GPG 插件以准备好最终签名发布包。
+
+#+BEGIN_SRC xml
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${maven.source.version}</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven.javadoc.version}</version>
+            <executions>
+              <execution>
+                <id>attach-javadoc</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+                <configuration>
+                  <doclint>none</doclint>
+                </configuration>
+              </execution>
+            </executions>
+            <configuration>
+              <show>public</show>
+              <charset>UTF-8</charset>
+              <encoding>UTF-8</encoding>
+              <docencoding>UTF-8</docencoding>
+              <links>
+                <link>http://docs.oracle.com/javase/8/docs/api</link>
+              </links>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven.gpg.version}</version>
+            <executions>
+              <execution>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+#+END_SRC
+
+* 配置 Maven Setting
+为了方便随后发布软件包，建议修改 Maven 配置以提供 GPG 签名和执行部署时所需要的认证信息。Maven 配置文件（settings.xml）位于 {HOME}/.m2/settings.xml，相关配置片段如下：
+#+BEGIN_SRC xml
+  <servers>
+    <server>
+      <id>ossrh</id>
+      <username>{your-jira-id}</username>
+      <password>{your-jira-pwd}</password>
+    </server>
+  </servers>
+
+  <profiles>
+    <profile>
+      <id>ossrh</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <gpg.executable>gpg</gpg.executable>
+        <gpg.passphrase>{your-gpg-passphrase}</gpg.passphrase>
+      </properties>
+    </profile>
+  </profiles>
+#+END_SRC
+- Server 片段的配置提供 OSSRH 部署所需要的认证账户信息；
+- Profile 片段的配置则为部署期间执行 GPG 对发布包进行签名提供必要信息，特别是创建秘钥对时提供的 GPG passphrase 信息；
+
+注意：这里 server.id 和 profile.id 配置要和 POM 中 distributionManagement.id 配置以及 nexus-staging-maven-plugin.serverId 的配置保持一致。
+
+* 执行 Snapshot 部署
+Snapshot 部署简单容易，不需要满足发布 (Release) 部署的要求，只要项目版本号以 "-SNAPSHOT" 结尾即可，运行如下命令执行 Snapshot 部署：
+#+BEGIN_SRC sh
+mvn clean deploy
+#+END_SRC
+
+注意：按照配置，Snapshot 部署会将你的 Snapshot 版本包上传至 [[https://oss.sonatype.org/content/repositories/snapshots][OSSRH SNAPSHOT 仓库]]。
+
+* 使用 Nexus Staging 插件执行部署和发布
+推荐使用 Nexus Staging Maven 插件部署发布包至 OSSRH 并发布至 Maven 中心仓库。在[[*%E5%87%86%E5%A4%87%E9%A1%B9%E7%9B%AE%20POM][准备项目 POM]] 章节，我们已经介绍了如何配置 =nexus-staging-maven-plugin= 。
+使用 Nexus Staging 插件部署发布版本之前，请修改你的项目版本号，确保版本号是发布版本（不以 -SNAPSHOT 为结尾），可以通过如下命令修改项目版本号为发布版本：
+#+BEGIN_SRC sh
+mvn versions:set -DnewVersion=1.0.0
+#+END_SRC
+
+插件属性 =autoReleaseAfterClose= 配置为 =true= 时，执行如下命令即可部署发布版本至 OSSRH 且自动发布至 Maven 中心仓库：
+#+BEGIN_SRC sh
+mvn clean deploy -p release
+#+END_SRC
+
+插件属性 =autoReleaseAfterClose= 配置为 =false= 时，则需要手动通过 [[https://oss.sonatype.org/#welcome][Nexus 仓库管理员]]界面检查和处理你的临时工作仓库并随后运行如下命令执行发布：
+#+BEGIN_SRC sh
+mvn nexus-staging:release
+#+END_SRC
+如果在部署期间发现问题，可以通过运行如下命令删除临时工作仓库：
+#+BEGIN_SRC sh
+mvn nexus-staging:drop
+#+END_SRC
+
+请注意，该方式执行发布版本部署的操作流程独立于 SCM 系统工作流，作为最佳实践，我们需要将发布到 Maven 中心仓库的版本对应我们 SCM 系统中的一个指定版本。这就需要手动处理项目版本号并手动操作代码库以确保在 SCM  系统中为发布版本打上相应的标签，建议遵循如下工作流程来发布版本：
+- 进行开发
+- 提交所有需要发布的代码变更
+- 验证并通过构建
+- 更新版本号为发布版本
+- 提交发布版本至代码库并打上相应的标签
+- 运行部署
+- 更新项目版本号为下一个 SNAPSHOT 版本号
+- 提交新的 SNAPSHOT 版本
+- 进行下个版本的开发并重复以上流程
+
+可以通过脚本或者 CI 系统或者使用 Maven Release 插件来自动化以上工作流，下面介绍使用 Maven Release 插件来实现自动化。
+
+* 使用 Maven Release 插件执行部署和发布
+使用 [[http://maven.apache.org/maven-release/maven-release-plugin][Maven Release 插件]] 可以自动化部署工作流，包括更新 Mavan POM 文件，执行 SCM 操作以及执行发布部署。使用 Maven Release 插件，需要确保：
+- 正确在 POM 中配置 SCM 信息以执行 SCM 相关的操作；
+- 正确在 POM 中配置 Nexus Staging 插件以执行部署相关操作；
+- 为了能够自动发布至 Maven 中心仓库，也需要确保配置 Nexus Staging 插件 autoReleaseAfterClose 属性的值为 =true= ；
+- 关闭 Maven Super POM Release Profile, 使用我们自己 POM 中定义的 Release Profile；
+
+#+BEGIN_SRC xml
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-release-plugin</artifactId>
+  <version>${maven.release.version}</version>
+  <configuration>
+    <autoVersionSubmodules>true</autoVersionSubmodules>
+    <useReleaseProfile>false</useReleaseProfile>
+    <releaseProfiles>release</releaseProfiles>
+    <goals>deploy nexus-staging:release</goals>
+  </configuration>
+</plugin>
+#+END_SRC
+
+如果一切配置正常，通过运行如下命令准备发布版本：
+#+BEGIN_SRC sh
+mvn release:clean release:prepare
+#+END_SRC
+
+在回答一些有关发布版本号，下个 SNAPSHOT 版本号等问题后，执行如下命令完成部署和发布：
+#+BEGIN_SRC sh
+mvn release:perform
+#+END_SRC
+
+Maven Release 插件为我们自动化如下工作流：
+- 修改项目 POM 版本号为指定发布版本，并提交该版本号变更至 SCM，并打上指定的标签；(release:prepare 命令)
+- 修改项目 POM 版本号为下个 SNAPSHOT 版本，并提交变更至 SCM；(release:prepare 命令)
+- 从 SCM 检出发布版本代码，运行构建任务创建发布包；（release:prepare 命令)
+- 部署发布版至 OOSRH 临时工作仓库；（release:perform 命令）
+- 关闭 OOSRH 临时工作仓库，Release 发布版至 Maven 中心仓库（通过 Nexus Staging 插件执行）；(release:perform 命令)
+
+注意：如果 Nexus Staging 插件属性 autoReleaseAfterClose 的值是 =false=, 仍然需要通过 [[https://oss.sonatype.org/#welcome][Nexus 仓库管理员]]界面关闭临时工作仓库并执行发布以便发布至 Maven 中心仓库。
+注意：完成发布后，大约 10 分钟既可以同步至 Maven 中心仓库，大约 2 小时候，就可以通过 https://search.maven.org 搜索到相应的发布包。
+
+* GPG Plugin Issue
+新版本的 GPG 在签名的时候会弹出一个交互 UI 以要求用户输入密码，maven-gpg-plugin 不能处理这种情形，从而导致报告错误 [[https://issues.apache.org/jira/browse/MGPG-59][gpg: signing failed: Inappropriate ioctl for device]]。解决方法是配置 GPG 支持 --pinentry-mode loopback 模式。具体配置如下：
+#+BEGIN_SRC sh
+cd ~/.gnupg
+
+# 创建 gpg.conf
+echo "use-agent" >> gpg.conf
+echo "pinentry-mode loopback" >> gpg.conf
+
+# 创建 gpg-agent.conf
+touch gpg-agent.conf
+echo "allow-loopback-pinentry" >> gpg-agent.conf
+#+END_SRC
+
+* 参考文献
+1. Guide to upload artifacts to the Central Repository, https://maven.apache.org/repository/guide-central-repository-upload.html.
+3. Requirement, https://central.sonatype.org/pages/requirements.html.
+5. Work with PGP Signatures, https://central.sonatype.org/pages/working-with-pgp-signatures.html.
+6. GPG Home, https://gnupg.org.
+7. OSSRH Guide, https://central.sonatype.org/pages/ossrh-guide.html.
+9. Deployment Using Maven, https://central.sonatype.org/pages/apache-maven.html.
+11. Release the Deployment to Central Repository, https://central.sonatype.org/pages/releasing-the-deployment.html.
+13. 记一次向maven中央仓库提交依赖包, http://www.cnblogs.com/wxisme/p/8728008.html.
+15. GPG Plugin "gpg: signing failed: Inappropriate ioctl for device", https://issues.apache.org/jira/browse/MGPG-59.
+17. gpg: signing failed, https://dev.gnupg.org/T3716.
+
+#+BEGIN_QUOTE
+本作品采用[[http://creativecommons.org/licenses/by/4.0/][知识共享署名 4.0 国际许可协议]]进行许可。
+#+END_QUOTE
