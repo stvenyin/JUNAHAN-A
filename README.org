@@ -28,7 +28,7 @@ Hold my articles, TODO list, etc.
 
 * 项目相关
 ** Strut2 Protobuf Plugin
-[[https://github.com/junahan/struts2-protobuf-plugin/tree/master/plugin-demo][Strut2 Protobuf Plugin]] 是我发布的开源项目，该项目主要特性：
+[[https://github.com/junahan/struts2-protobuf-plugin][Strut2 Protobuf Plugin]] 是我发布的开源项目，该项目主要特性：
 - 提供工具类库，支持将 protobuf 消息域的值转换为类型兼容的 Java 对象属性值，反之依然；
 - 将 protobuf 消息域的值自动转换为对应的 Action 对象属性值；
 - 支持将 protobuf 消息作为 Struts2 Result - 包括成功的 Response，验证错误（包括字段/动作错误）或者异常，均可以通过 protobuf 消息结果返回。
