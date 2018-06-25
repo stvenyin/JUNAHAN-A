@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-#+TITLE:              MAC - MISC
+#+TITLE:              MAC - Dev - 101
 #+AUTHOR:         Junahan
 #+EMAIL:             junahan@outlook.com
 #+DATE:              2018-04-29
@@ -83,4 +83,7 @@ source ~/.bash_profile
 1. Homebrew Home, https://brew.sh.
 3. SDKMan Home, http://sdkman.io.
 5. Dokder Document, https://docs.docker.com.
+7. Python Home, https://www.python.org.
+9. Maven Home, https://maven.apache.org.
+11. Gradle Home, https://gradle.org.
 

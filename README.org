@@ -22,10 +22,11 @@ Hold my articles, TODO list, etc.
 4. [[file:blockchain/interledger_architecture.org][Interledger 架构]] - Interledger 架构。(TODO...)
 5. [[file:blockchain/solidity-dev-env.org][Solidity 开发环境和工具]] - 根据个人学习经验总结的有关 Solidity 开发环境和工具安装，配置和基本使用。(TODO...)
 
-* 项目相关
-** 如何发布项目包至 Maven 中心仓库
-以我发布的开源项目[[https://github.com/junahan/struts2-protobuf-plugin/tree/master/plugin-demo][ Struts2 Protobuf Plugin]] 为例，简明扼要的按步骤说明[[file:misc/release-package-to-maven-centre-repository-how-to.org][如何发布项目包至 Maven 中心仓库]]。
+* S101 系列
+- [[file:s101/release-package-to-maven-centre-repository-101.org][如何发布项目包至 Maven 中心仓库-101]] - 以我发布的开源项目[[https://github.com/junahan/struts2-protobuf-plugin/tree/master/plugin-demo][ Struts2 Protobuf Plugin]] 为例，简明扼要的入门教程。
+- [[file:s101/streaming-server-101.org][流媒体服务器-101]] - 针对流媒体服务器的一个初步调查。
 
+* 项目相关
 ** Strut2 Protobuf Plugin
 [[https://github.com/junahan/struts2-protobuf-plugin/tree/master/plugin-demo][Strut2 Protobuf Plugin]] 是我发布的开源项目，该项目主要特性：
 - 提供工具类库，支持将 protobuf 消息域的值转换为类型兼容的 Java 对象属性值，反之依然；

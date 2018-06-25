@@ -104,7 +104,6 @@ Solidity v0.4.23 (solc-js)
 
 *** TODO 快速启用
 
-
 ** 其他工具
 *** Remix App
 相对于 Remix-ide，Remix-app 提供了本地运行的体验，编译构建 Remix App：
@@ -140,6 +139,7 @@ Enthereum 提供 [[https://github.com/ethereum/wiki/wiki/JSON-RPC#json-rpc-metho
 4. JavaScript API wiki, https://github.com/ethereum/wiki/wiki/JavaScript-API.
 5. Solidiky Document, https://solidity.readthedocs.io
 7. Truffle, http://truffleframework.com
+9. EthereumToken Contracts, https://github.com/ConsenSys/Tokens.
 
 #+BEGIN_QUOTE
 本作品采用[[http://creativecommons.org/licenses/by/4.0/][知识共享署名 4.0 国际许可协议]]进行许可。

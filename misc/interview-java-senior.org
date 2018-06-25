@@ -125,6 +125,7 @@ Java 安全框架通过安全提供者机制支持可插入安全服务，并通
 - 不能控制 GC 何时开始收集垃圾，垃圾收集期间，可能会导致应用响应延迟 (Latency，应用暂时停止响应)
 - GC 的性能会影响系统的吞吐量 (Throughput) ，尤其是在大型服务系统中（10% 的 GC 工作负载会在有 32 个处理器系统上导致高达 75% 系统吞吐量的损失）。因此，GC 的选择和调优会变得很有必要。GC 的调优是建立在吞吐量和延迟的相对平衡上。相关详情，请参阅 [[https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/toc.html][HotSpot Virtual Machine Garbage Collection Tuning Guide]]
 
+** Java IO/NIO
 ** TODO JPA 和 ORM
 
 ** TODO JMS 和 消息队列
@@ -138,6 +139,8 @@ Java 安全框架通过安全提供者机制支持可插入安全服务，并通
 - Shiro
 - Kafka
 - Redis
+** TODO MISC
+*** TODO JMH
 
 ** 问题示例
 *** 示例 I
@@ -443,6 +446,10 @@ End-to-end Tracking System 是指一套能够穿透业务系统前后端的业�
 41. Dubbo Document, http://dubbo.incubator.apache.org/books/dubbo-user-book/.
 43. Introduction to Dubbo, http://www.baeldung.com/dubbo.
 47. HTML5 设计原则, http://javatar.iteye.com/blog/949390.
+49. Java NIO Tutorial, http://tutorials.jenkov.com/java-nio/index.html.
+51. Thread Compatible, https://www.ibm.com/developerworks/library/j-jtp09263/.
+53. JMH Tutorials, http://tutorials.jenkov.com/java-performance/jmh.html.
+55. JMH Samples, http://hg.openjdk.java.net/code-tools/jmh/file/tip/jmh-samples/src/main/java/org/openjdk/jmh/samples/.
 
 #+BEGIN_QUOTE
 本作品采用[[http://creativecommons.org/licenses/by/4.0/][知识共享署名 4.0 国际许可协议]]进行许可。

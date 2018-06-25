@@ -1,0 +1,39 @@
+# -*- mode: org; coding: utf-8; -*-
+#+TITLE:              OSGi - 101
+#+AUTHOR:         Junahan
+#+EMAIL:             junahan@outlook.com 
+#+DATE:              2018-06-24
+#+LANGUAGE:    CN
+#+OPTIONS:        H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:        TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT:   view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+LICENSE:         CC BY 4.0
+
+* 摘要
+
+* TODO 什么是 OSGi
+OSGi, The Dynamic Module System for Java.
+
+
+* 工具
+- BND Tools 
+
+* MISC
+** Java SPI
+
+** OSGi Whiteboard Pattern
+
+
+* 参考文献
+1. OSGi Home, https://www.osgi.org.
+3. OSGi enRoute, https://github.com/osgi/osgi.enroute/.
+5. BND Tools, https://bnd.bndtools.org.
+7. BND Github, https://github.com/bndtools/bnd.
+8. Java SPI Introduction, https://docs.oracle.com/javase/tutorial/sound/SPI-intro.html.
+9. SPI in OSGi, https://blog.osgi.org/2008/09/spi-in-osgi.html.
+11. Java ServiceLoader in OSGi, https://blog.osgi.org/2013/02/javautilserviceloader-in-osgi.html.
+13. SPI Fly, http://aries.apache.org/modules/spi-fly.html.
+15. Apache Karaf, https://karaf.apache.org/projects.html.
+17. Whiteboard Pattern, https://www.osgi.org/wp-content/uploads/whiteboard1.pdf.
+51. Liquibase Home, http://www.liquibase.org.
+
