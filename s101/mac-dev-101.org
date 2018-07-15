@@ -79,6 +79,13 @@ echo '[ -f $(brew --prefix)/etc/bash_completion ] && . $(brew --prefix)/etc/bash
 source ~/.bash_profile
 #+END_SRC
 
+* Wireshark
+Run following command to install wireshark. 
+#+BEGIN_SRC sh
+brew cask install wireshark
+#+END_SRC
+
+
 * 参考文献
 1. Homebrew Home, https://brew.sh.
 3. SDKMan Home, http://sdkman.io.
@@ -86,4 +93,6 @@ source ~/.bash_profile
 7. Python Home, https://www.python.org.
 9. Maven Home, https://maven.apache.org.
 11. Gradle Home, https://gradle.org.
+31. Wireshark Home, https://www.wireshark.org.
+33. Wireshark Http2 plugin, https://bugs.wireshark.org/bugzilla/show_bug.cgi?id=9042.
 

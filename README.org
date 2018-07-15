@@ -12,15 +12,18 @@
 * Overview 
 Hold my articles, TODO list, etc.
 
-* AI 相关
+* AI
 1. [[file:ai/AI_reading_list.org][AI 阅读列表]] - 根据我学习 AI 的经验总结的一份学习列表，包括书籍、课程、工具以及相关文章等。
 
-* Blockchain 相关
+* Blockchain
 1. [[file:blockchain/bitcoin-wallet-security.org][比特币钱包安全]] - 介绍比特币钱包安全相关内容，特别是冷热钱包相关主题。(完工)
 2. [[file:blockchain/Bitcoin-Lightning-Network-Introduction.org][比特币闪电网络介绍]] - 针对比特币闪电网络的简单介绍。(完工)
 3. [[file:blockchain/Bitcoin-Lightning-Network-Paper-cn.org][比特币闪电网络论文]] - 翻译比特币闪电网络论文。(TODO...)
 4. [[file:blockchain/interledger_architecture.org][Interledger 架构]] - Interledger 架构。(TODO...)
 5. [[file:blockchain/solidity-dev-env.org][Solidity 开发环境和工具]] - 根据个人学习经验总结的有关 Solidity 开发环境和工具安装，配置和基本使用。(TODO...)
+
+* Service Mesh
+1. [[file:envoy-the-universal-data-plane-api-cn.org][Envoy 通用数据平面 API]] - 翻译 [[https://blog.envoyproxy.io/the-universal-data-plane-api-d15cec7a][The universal data plane APIs]]，介绍通用数据平面 API 的由来和动机。
 
 * S101 系列
 - [[file:s101/release-package-to-maven-centre-repository-101.org][如何发布项目包至 Maven 中心仓库-101]] - 以我发布的开源项目[[https://github.com/junahan/struts2-protobuf-plugin/tree/master/plugin-demo][ Struts2 Protobuf Plugin]] 为例，简明扼要的入门教程。
