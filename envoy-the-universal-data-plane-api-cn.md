@@ -1,0 +1,77 @@
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Envoy v1 APIs 的历史</a></li>
+<li><a href="#sec-2">2. V1 APIs 的不足和 v2 版本介绍</a></li>
+<li><a href="#sec-3">3. 多代理多控制平面 API ?</a></li>
+<li><a href="#sec-4">4. Envoy API 的合作邀请</a></li>
+</ul>
+</div>
+</div>
+
+
+> 原文 - [The universal data plane API](https://blog.envoyproxy.io/the-universal-data-plane-api-d15cec7a), by [mattklein123](https://blog.envoyproxy.io/@mattklein123?source%3Dpost_header_lockup).
+> 翻文 - [Envoy 通用数据平面 API](https://github.com/junahan/JUNAHAN-A/blob/master/envoy-the-universal-data-plane-api-cn.org), by [Jonahan](https://github.com/junahan).
+
+就像我之前说的那样，在如此短的时间内围绕 Envoy 的兴奋以及其采用速度令人既惊叹又谦卑。我常常问自己：是那个方面因素导致 Envoy 社区不同寻常的增长? 尽管 Envoy 有许多令人注目的特性，最终，我认为有三个共同作用的主要特性驱动：
+
+1.  `性能:` 除了很多数量的特性外，Envoy 在消耗相当少 CPU 和 RAM 的情形下提供了非常高的吞吐量和稳定的低延迟 (low tail latency variance) 特性。
+2.  `可扩展性:` Envoy 同时在 L4 和 L7 提供丰富的可插拔过滤器能力，允许用户容易的添加 OSS 系统中不具备的功能。
+3.  `API 可配置:` 也许最重要的是 Envoy 为管理平面服务提供了一系列的动态配置 APIs (management APIs)。如果管理平面实现了所有这些 APIs，就可以使用通用公共引导配置 (bootstrap configuration) 的方式在整个基础设施上运行 Envoy，所有未来的配置变更均可以通过管理服务器以可持续和动态的方式实施而无需重启 Envoy。这使得 Envoy 作为一个通用数据平面，和老练的 (sophisticated enough) 控制平面协同工作，极大减少整个营运工作的复杂度。
+
+已经存在具有极高性能的代理，也存在一些具有高水平可扩展性和动态可配置代理。在我看来，正是兼备高性能、高可扩展性以及动态可配置特性使 Envoy 如此令人注目。
+
+在这篇文章中，我将概述 Envoy 动态配置 APIs 背后的历史和动机，讨论从 v1 到 v2 版本的进化，最后，我鼓励广大负载均衡、代理和控制平面社区考虑在他们的产品中支持该 APIs。
+
+# Envoy v1 APIs 的历史<a id="sec-1" name="sec-1"></a>
+
+Envoy 其中一个原本设计目标是利用[最终一致性服务发现 (eventually consistent service discovery) ](https://lyft.github.io/envoy/docs/intro/arch_overview/service_discovery.html#on-eventually-consistent-service-discovery)系统。为此目的，我们开发了一个非常简单的[服务发现](https://github.com/lyft/discovery) 和 [Service Discovery Service (SDS) REST API](https://lyft.github.io/envoy/docs/configuration/cluster_manager/sds_api.html) 以返回上游集群成员关系。这个 API 克服一些基于 DNS 服务发现机制的限制 (记录限制、缺少额外的元数据等等) 并且允许我们快速实现高可靠性。
+
+起初 Envoy 开源的时候，我们收到了相当多有关支持其他服务发现系统 (如 Consul, Kubernetes, Marathon, DNS SRV, 等) 的询问。我一度担心我们会由于缺乏直接对这些系统的支持而限制 Envoy 的采用。我们代码的实现方式使得添加新的发现适配并不困难，我希望有兴趣的参与者能够实现新的适配器。在过去一年真实的情况是什么？没有一个新的适配器被贡献但 Envoy 依然被不可置信的采纳。为什么？
+
+这表明了大家都以适合于他们自己部署的方式实现了 SDS API。API 本身很简单，但是我不认为这是人们这样做的唯一原因。Another reason is that the further away you get from the data plane, things naturally start becoming more opinionated. Envoy 的用户通常最终想集成服务发现进入站点特定工作流。简单的 API 允许容易的集成进入几乎任意控制平面系统。甚至于 Consule (参阅 [Nelson](https://verizon.github.io/nelson/) 的例子) 系统的用户发现有一个中介 API 有益于围绕成员关系和命名服务 (membership and naming) 做更多的智能化处理。由此可见，即便是在早期，我们亦看到对一个通用的数据平面 API 的渴望：一个简单的，从控制平面抽象出来的数据平面 API。
+
+在过去的一年，多个 v1/REST 管理 API 被加入 Envoy。它们包括：
+-   集群发现服务 (CDS) : 使用该 API，Envoy 能够动态添加/更新/移除所有上游集群 (每个集群有自己的服务/端点发现机制) 。
+-   路由发现服务 (RDS) : 使用该 API，Envoy 能够动态添加/更新 HTTP 路由表。
+-   监听器发现服务 (LDS) : 使用该 API，Envoy 能够动态添加/更新/移除整个监听器，包括监听器所有 L4 和 L7 过滤器栈。
+
+当控制平面实现了所有 SDS/CDS/RDS/LDS，实际上 Envoy 所有方面均可以被在运行时动态配置。Istio 和 Nelson 两者均是构在 v1 API 之上，特性丰富的控制平面实例。得益于相当简单的 REST API，Envoy 能够在性能和数据平面特性上快速迭代，于此同时仍然支持多样化的不同的控制平面场景。至此，通用数据平面概念更加接近于现实。
+
+# V1 APIs 的不足和 v2 版本介绍<a id="sec-2" name="sec-2"></a>
+
+V1 API 仅支持 JSON/REST 并自然的以拉取的方式工作。这有几点不足：
+-   尽管 Envoy 内部使用 JSON 模式 (JSON Schema)，但 APIs 自身并非强类型，难于安全的实现通用服务器。
+-   尽管拉取模式在时间上工作良好，但更多控制平面能力首选基于流的 API (streaming API) 以使得更新能够被推送给每个准备好的 Envoy 实例。这样即便是在极大规模的部署上也能够降低更新传播时间从 30-60 秒至 150-500 毫秒。
+
+加强了和 Google 之间的合作，我们在过去几个月为我们称之为 v2 的新的系列 APIs 而努力工作。新的 v2 APIs 具有如下特点：
+-   使用 [proto3](https://developers.google.com/protocol-buffers/docs/proto3) 作为新 API 模式语言并且实现 [gRPC](https://grpc.io/) 和 REST + JSON/YAML。另外，使用了新的专用的代码仓库 - [envoy-api](https://github.com/lyft/envoy-api)。 使用 proto3 意味着新的 APIs 是强类型，同时仍通过 proto3 支持 JSON/YAML 变体。使用专用的代码仓库意味着项目可以很容易的使用该 API 并可以生成任意 gRPC 支持语言的存根代码 (我们继续基于 JSON/YAML 变体支持 REST API)。
+-   V2 APIs 是 v1 的进化而非革命，v2 是 v1 的一个超集。使用 v1 的用户会发现 v2 非常接近于他们使用的版本。实际上，我们在 Envoy 中实现 v2 的方式允许 v1 看起来像是被永久继续支持。
+-   元数据 (opaque metadata) 被添加人需对 API 响应，允许大量的扩展。例如，HTTP 路由元数据，元数据被附加至上游端点，定制负载均衡器能够被用于构建站点特定的基于标签的路由。我们的目标是让在默认 OSS 上非常容易的插入丰富的功能。期待将来有更健全描述 Enovy 扩展的文档。
+-   至于使用 gRPC (对比 JSON/REST) v2，双向流支持允许很多有趣的增强，我随后会讨论更多这方面内容。
+
+V2 APIs 构成：
+-   端点发现服务 (EDS) : 这个 API 用于替代 v1 SDS API. SDS 是一个不合适的命名选择，我们在 v2 中修复了这个命名。额外的，gRPC 双向流本质上允许负载/健康信息报告至后端管理服务器，打开了未来支持全局负载均衡的大门。
+-   集群发现服务 (CDS) : 和 v1 比，没有显著变化。
+-   路由发现服务 (RDS) : 和 v1 比，没有显著变化。
+-   监听器发现服务 (LDS) : 和 v1 比，一个最大的变化是允许一个监听器定义多个并行过滤器栈，基于一组监听器路由规则 (例如，SNI, 源/目标 IP 匹配等) 选择过滤器栈。这是更加清晰的处理 “源目标” 策略路由的方法，该方法用于透明化数据平面解决方案 (如 Istio)。
+-   健康检查发现服务 (HDS) : 这个 API 将允许一个 Envoy 实例成为分布式健康检查网络成员。一个中心化健康检查服务能够使用一组 Envoy 作为健康检查端点并且上报状态以缓解 N<sup>2</sup> 健康检查问题 (潜在地，每个 Envoy 相互做健康检查导致)。
+-   聚合发现服务 (ADS) : Envoy 被设计为遵循最终一致性。这意味着，默认情况下，管理 APIs 兵法运行并且相互之间不会交互。在一些情形下，最好是一个单独的管理服务器处理单一 Envoy 的所有变更 (如变更需要以顺序的方式执行以避免流量丢失)。这个 API 允许所有其他 APIs 分派给来自于单一管理服务器的单一 gRPC 流，从而允许确定的序列执行。
+-   秘钥发现服务 (KDS) : 这个 API 尚未定义，我们将为 TLS 秘钥发送添加一个专用 API。该 API 能够通过一个专用的秘钥管理系统发送秘钥，从而解耦主监听器和集群配置。
+
+总体上，我们统称以上所述 APIs 为 xDS。在我看来，从 JSON/REST AIPs 迁移至类型完备、更加易于使用的 proto3 APIs 令人振奋，并且在将来会增加 APIs 本身和 Envoy 的采用。
+
+# 多代理多控制平面 API ?<a id="sec-3" name="sec-3"></a>
+
+当前，服务网格/负载均衡领域非常活跃。代理领域包括 Envoy, [Linkerd](https://linkerd.io/), [NGINX](https://www.nginx.com/), [HAProxy](https://www.haproxy.com/), [Traefik](https://traefik.io/), 来自于所有主流云供应商的软件负载均衡器参与其中，除此之外还有来自传统硬件供应商如 F5 和 Cisco 的硬件设备。控制平面领域也逐渐升温，解决方案玩家如 [Istio](https://istio.io/), [Nelson](https://verizon.github.io/nelson/), 集成云解决方案，以及即将到来的众多供应商的产品。
+
+谈及 Istio，Linkerd 已经宣布支持 Istio，这意味着它至少在某种程度上已经实现 v1 Envoy APIs。其它的有望跟随。在这个数据平面和控制平面均快速发展的新领域，我们将看到各类组建的混合和匹配，数据平面将和许多控制平面一起工作，反之依然。就整个行业而言，我们会从一个允许更容易混合和匹配的通用 API 中获益吗？这将如何提供帮助？
+
+我的观点是，在接下去几年内，数据平面本身将会基本上商品化。更多的创新 (通过扩充商业机会) 将实际上成为控制平面的一部分。使用 v2 Envoy APIs, 控制平面能力能够涵盖从利用 N<sup>2</sup> 健康检测的扁平端点名称空间 (a flat endpoint namespace utilizing N<sup>2</sup> health checking) ，一直到一个特性极其丰富的全局负载均衡系统，该系统可以自动分组、负载切分和均衡、分布式部分健康检查、区域感知路由 (zone aware routing) 、自动基于百分比部署和回滚等等。供应商将在提供最优无缝隙服务营运环境层面展开竞争，而且自动化路由控制是其重要的组成部分。
+
+在这个新领域，一个能够用于数据平面和控制平面对话的公共 API 是所有参与者的共赢。控制平面提供者能够提供他们的服务给任意实现该 API 的数据平面。数据平面能够在特性、性能、扩展性和可靠性上竞争。此外，数据平面和控制平面解耦允许控制平面提供者能够提供 SaaS 解决方案而无需同时拥有数据平面部署，这是一个主要的痛点。
+
+# Envoy API 的合作邀请<a id="sec-4" name="sec-4"></a>
+
+尽管很难说接下来的几年将发生什么，我们仍然为 Envoy 以及与之相关的 APIs 的采用速度而非常兴奋。我们看到了一个公共的通用数据平面 APIs 的价值，它能够桥接迥然不同的系统。在此，我诚邀广大数据平面和控制平面供应商和用户社区通过 [envoy-api](https://github.com/lyft/envoy-api) 代码库 (请注意，当 Envoy 加入 CNCF 并且迁移至专用 envoyproxy GitHub 组织下，我们将重新命名这个代码库为 data-plane-api) 进行协作。我们不能承诺会添加所有想到的特性，但我们很乐意看到其他系统使用这些 APIs 并帮助我们进化它以符合他们的需求。我们的观点是，在未来的几年里，主要的创新将发生在控制平面领域，通过促进控制平面的加速迭代和竞争，数据平面的商业化应用将为终端用户带来极大的好处。
