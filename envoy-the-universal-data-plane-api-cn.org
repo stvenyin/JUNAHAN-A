@@ -9,8 +9,10 @@
 #+INFOJS_OPT:   view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+LICENSE:         CC BY 4.0
 
+#+BEGIN_QUOTE
 原文 - [[https://blog.envoyproxy.io/the-universal-data-plane-api-d15cec7a][The universal data plane API]], by [[https://blog.envoyproxy.io/@mattklein123?source%3Dpost_header_lockup][mattklein123]].
-翻文 - Envoy 通用数据平面 API, by [[https://github.com/junahan][Jonahan]].
+译文 - [[https://github.com/junahan/JUNAHAN-A/blob/master/envoy-the-universal-data-plane-api-cn.org][Envoy 通用数据平面 API]], by [[https://github.com/junahan][Jonahan]].
+#+END_QUOTE
 
 就像我之前说的那样，在如此短的时间内围绕 Envoy 的兴奋以及其采用速度令人既惊叹又谦卑。我常常问自己：是那个方面因素导致 Envoy 社区不同寻常的增长? 尽管 Envoy 有许多令人注目的特性，最终，我认为有三个共同作用的主要特性驱动：
 
