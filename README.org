@@ -21,6 +21,7 @@ Hold my articles, TODO list, etc.
 3. [[file:blockchain/Bitcoin-Lightning-Network-Paper-cn.org][比特币闪电网络论文]] - 翻译比特币闪电网络论文。(TODO...)
 4. [[file:blockchain/interledger_architecture.org][Interledger 架构]] - Interledger 架构。(TODO...)
 5. [[file:blockchain/solidity-dev-env.org][Solidity 开发环境和工具]] - 根据个人学习经验总结的有关 Solidity 开发环境和工具安装，配置和基本使用。(TODO...)
+7. [[file:blockchain/fabric-geting-start.org][Fabric 快速开始]] - 结合 Fabric Sample 启动一个用户开发和测试的网络环境。
 
 * Service Mesh
 1. [[file:envoy-the-universal-data-plane-api-cn.org][Envoy 通用数据平面 API]] - 翻译 [[https://blog.envoyproxy.io/the-universal-data-plane-api-d15cec7a][The universal data plane APIs]]，介绍通用数据平面 API 的由来和动机。
